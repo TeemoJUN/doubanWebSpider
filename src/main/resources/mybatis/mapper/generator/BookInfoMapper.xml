@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spider.book.douban.com.dao.BookInfoMapper">
+  <resultMap id="BaseResultMap" type="spider.book.douban.com.model.BookInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author_name" jdbcType="VARCHAR" property="authorName" />
+    <result column="press" jdbcType="VARCHAR" property="press" />
+    <result column="original_title" jdbcType="VARCHAR" property="originalTitle" />
+    <result column="translator" jdbcType="VARCHAR" property="translator" />
+    <result column="pubTime" jdbcType="DATE" property="pubtime" />
+    <result column="pages" jdbcType="INTEGER" property="pages" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="binding" jdbcType="VARCHAR" property="binding" />
+    <result column="series" jdbcType="VARCHAR" property="series" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="rating" jdbcType="DOUBLE" property="rating" />
+    <result column="comments" jdbcType="INTEGER" property="comments" />
+    <result column="content_info" jdbcType="VARCHAR" property="contentInfo" />
+    <result column="author_info" jdbcType="VARCHAR" property="authorInfo" />
+    <result column="user_tags" jdbcType="VARCHAR" property="userTags" />
+    <result column="also_like_eBook" jdbcType="VARCHAR" property="alsoLikeEbook" />
+    <result column="also_like_book" jdbcType="VARCHAR" property="alsoLikeBook" />
+    <result column="short_comments_num" jdbcType="INTEGER" property="shortCommentsNum" />
+    <result column="book_comments_num" jdbcType="INTEGER" property="bookCommentsNum" />
+    <result column="reading_notes_num" jdbcType="INTEGER" property="readingNotesNum" />
+    <result column="readings_num" jdbcType="INTEGER" property="readingsNum" />
+    <result column="has_read_num" jdbcType="INTEGER" property="hasReadNum" />
+    <result column="want_read_num" jdbcType="INTEGER" property="wantReadNum" />
+    <result column="other_versions" jdbcType="VARCHAR" property="otherVersions" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, no, title, author_name, press, original_title, translator, pubTime, pages, price, 
+    binding, series, isbn, rating, comments, content_info, author_info, user_tags, also_like_eBook, 
+    also_like_book, short_comments_num, book_comments_num, reading_notes_num,
+    readings_num, has_read_num, want_read_num, other_versions, url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="spider.book.douban.com.model.BookInfo">
+    insert into book_info (id, no, title, 
+      author_name, press, original_title, 
+      translator, pubTime, pages, 
+      price, binding, series, 
+      isbn, rating, comments, 
+      content_info, author_info, user_tags, 
+      also_like_eBook, also_like_book, short_comments_num, 
+      book_comments_num, reading_notes_num,
+      readings_num, has_read_num, want_read_num, 
+      other_versions, url)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{authorName,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, #{originalTitle,jdbcType=VARCHAR}, 
+      #{translator,jdbcType=VARCHAR}, #{pubtime,jdbcType=DATE}, #{pages,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{binding,jdbcType=VARCHAR}, #{series,jdbcType=VARCHAR}, 
+      #{isbn,jdbcType=VARCHAR}, #{rating,jdbcType=DOUBLE}, #{comments,jdbcType=INTEGER}, 
+      #{contentInfo,jdbcType=VARCHAR}, #{authorInfo,jdbcType=VARCHAR}, #{userTags,jdbcType=VARCHAR}, 
+      #{alsoLikeEbook,jdbcType=VARCHAR}, #{alsoLikeBook,jdbcType=VARCHAR}, #{shortCommentsNum,jdbcType=INTEGER}, 
+      #{bookCommentsNum,jdbcType=INTEGER}, #{readingNotesNum,jdbcType=INTEGER},
+      #{readingsNum,jdbcType=INTEGER}, #{hasReadNum,jdbcType=INTEGER}, #{wantReadNum,jdbcType=INTEGER}, 
+      #{otherVersions,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="spider.book.douban.com.model.BookInfo">
+    insert into book_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="authorName != null">
+        author_name,
+      </if>
+      <if test="press != null">
+        press,
+      </if>
+      <if test="originalTitle != null">
+        original_title,
+      </if>
+      <if test="translator != null">
+        translator,
+      </if>
+      <if test="pubtime != null">
+        pubTime,
+      </if>
+      <if test="pages != null">
+        pages,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="binding != null">
+        binding,
+      </if>
+      <if test="series != null">
+        series,
+      </if>
+      <if test="isbn != null">
+        isbn,
+      </if>
+      <if test="rating != null">
+        rating,
+      </if>
+      <if test="comments != null">
+        comments,
+      </if>
+      <if test="contentInfo != null">
+        content_info,
+      </if>
+      <if test="authorInfo != null">
+        author_info,
+      </if>
+      <if test="userTags != null">
+        user_tags,
+      </if>
+      <if test="alsoLikeEbook != null">
+        also_like_eBook,
+      </if>
+      <if test="alsoLikeBook != null">
+        also_like_book,
+      </if>
+      <if test="shortCommentsNum != null">
+        short_comments_num,
+      </if>
+      <if test="bookCommentsNum != null">
+        book_comments_num,
+      </if>
+      <if test="readingNotesNum != null">
+        reading_notes_num,
+      </if>
+      <if test="readingsNum != null">
+        readings_num,
+      </if>
+      <if test="hasReadNum != null">
+        has_read_num,
+      </if>
+      <if test="wantReadNum != null">
+        want_read_num,
+      </if>
+      <if test="otherVersions != null">
+        other_versions,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorName != null">
+        #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="press != null">
+        #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="originalTitle != null">
+        #{originalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="translator != null">
+        #{translator,jdbcType=VARCHAR},
+      </if>
+      <if test="pubtime != null">
+        #{pubtime,jdbcType=DATE},
+      </if>
+      <if test="pages != null">
+        #{pages,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="binding != null">
+        #{binding,jdbcType=VARCHAR},
+      </if>
+      <if test="series != null">
+        #{series,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="rating != null">
+        #{rating,jdbcType=DOUBLE},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=INTEGER},
+      </if>
+      <if test="contentInfo != null">
+        #{contentInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="authorInfo != null">
+        #{authorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="userTags != null">
+        #{userTags,jdbcType=VARCHAR},
+      </if>
+      <if test="alsoLikeEbook != null">
+        #{alsoLikeEbook,jdbcType=VARCHAR},
+      </if>
+      <if test="alsoLikeBook != null">
+        #{alsoLikeBook,jdbcType=VARCHAR},
+      </if>
+      <if test="shortCommentsNum != null">
+        #{shortCommentsNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookCommentsNum != null">
+        #{bookCommentsNum,jdbcType=INTEGER},
+      </if>
+      <if test="readingNotesNum != null">
+        #{readingNotesNum,jdbcType=INTEGER},
+      </if>
+      <if test="readingsNum != null">
+        #{readingsNum,jdbcType=INTEGER},
+      </if>
+      <if test="hasReadNum != null">
+        #{hasReadNum,jdbcType=INTEGER},
+      </if>
+      <if test="wantReadNum != null">
+        #{wantReadNum,jdbcType=INTEGER},
+      </if>
+      <if test="otherVersions != null">
+        #{otherVersions,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="spider.book.douban.com.model.BookInfo">
+    update book_info
+    <set>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="authorName != null">
+        author_name = #{authorName,jdbcType=VARCHAR},
+      </if>
+      <if test="press != null">
+        press = #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="originalTitle != null">
+        original_title = #{originalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="translator != null">
+        translator = #{translator,jdbcType=VARCHAR},
+      </if>
+      <if test="pubtime != null">
+        pubTime = #{pubtime,jdbcType=DATE},
+      </if>
+      <if test="pages != null">
+        pages = #{pages,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="binding != null">
+        binding = #{binding,jdbcType=VARCHAR},
+      </if>
+      <if test="series != null">
+        series = #{series,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="rating != null">
+        rating = #{rating,jdbcType=DOUBLE},
+      </if>
+      <if test="comments != null">
+        comments = #{comments,jdbcType=INTEGER},
+      </if>
+      <if test="contentInfo != null">
+        content_info = #{contentInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="authorInfo != null">
+        author_info = #{authorInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="userTags != null">
+        user_tags = #{userTags,jdbcType=VARCHAR},
+      </if>
+      <if test="alsoLikeEbook != null">
+        also_like_eBook = #{alsoLikeEbook,jdbcType=VARCHAR},
+      </if>
+      <if test="alsoLikeBook != null">
+        also_like_book = #{alsoLikeBook,jdbcType=VARCHAR},
+      </if>
+      <if test="shortCommentsNum != null">
+        short_comments_num = #{shortCommentsNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookCommentsNum != null">
+        book_comments_num = #{bookCommentsNum,jdbcType=INTEGER},
+      </if>
+      <if test="readingNotesNum != null">
+        reading_notes_num = #{readingNotesNum,jdbcType=INTEGER},
+      </if>
+      <if test="readingsNum != null">
+        readings_num = #{readingsNum,jdbcType=INTEGER},
+      </if>
+      <if test="hasReadNum != null">
+        has_read_num = #{hasReadNum,jdbcType=INTEGER},
+      </if>
+      <if test="wantReadNum != null">
+        want_read_num = #{wantReadNum,jdbcType=INTEGER},
+      </if>
+      <if test="otherVersions != null">
+        other_versions = #{otherVersions,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="spider.book.douban.com.model.BookInfo">
+    update book_info
+    set no = #{no,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author_name = #{authorName,jdbcType=VARCHAR},
+      press = #{press,jdbcType=VARCHAR},
+      original_title = #{originalTitle,jdbcType=VARCHAR},
+      translator = #{translator,jdbcType=VARCHAR},
+      pubTime = #{pubtime,jdbcType=DATE},
+      pages = #{pages,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      binding = #{binding,jdbcType=VARCHAR},
+      series = #{series,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      rating = #{rating,jdbcType=DOUBLE},
+      comments = #{comments,jdbcType=INTEGER},
+      content_info = #{contentInfo,jdbcType=VARCHAR},
+      author_info = #{authorInfo,jdbcType=VARCHAR},
+      user_tags = #{userTags,jdbcType=VARCHAR},
+      also_like_eBook = #{alsoLikeEbook,jdbcType=VARCHAR},
+      also_like_book = #{alsoLikeBook,jdbcType=VARCHAR},
+      short_comments_num = #{shortCommentsNum,jdbcType=INTEGER},
+      book_comments_num = #{bookCommentsNum,jdbcType=INTEGER},
+      reading_notes_num = #{readingNotesNum,jdbcType=INTEGER},
+      readings_num = #{readingsNum,jdbcType=INTEGER},
+      has_read_num = #{hasReadNum,jdbcType=INTEGER},
+      want_read_num = #{wantReadNum,jdbcType=INTEGER},
+      other_versions = #{otherVersions,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

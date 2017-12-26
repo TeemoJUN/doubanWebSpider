@@ -48,7 +48,6 @@ CREATE TABLE `book_info`(
   `short_comments_num` int(11) DEFAULT NULL COMMENT '短评数',
   `book_comments_num` int(11) DEFAULT NULL COMMENT '书评数',
   `reading_notes_num` int(11) DEFAULT NULL COMMENT '读书笔记数',
-  `book_url` varchar(200) DEFAULT NULL COMMENT '图书地址',
   `readings_num` int(11) DEFAULT NULL COMMENT '正在读书人数',
   `has_read_num` int(11) DEFAULT NULL COMMENT '读过人数',
   `want_read_num` int(11) DEFAULT NULL COMMENT '想读人数',
@@ -72,16 +71,17 @@ CREATE TABLE `eBook_info`(
   `comments` int(11) DEFAULT NULL COMMENT '评价人数',
   `current_price` double DEFAULT NULL COMMENT '定价',
   `description` varchar(2000) DEFAULT NULL COMMENT '导言',
-  `popular-annotations` varchar(2000) DEFAULT NULL COMMENT '热门划线',
+  `popular_annotations` varchar(2000) DEFAULT NULL COMMENT '热门划线',
   `key_words` varchar(50) DEFAULT NULL COMMENT '作品标签',
   PRIMARY KEY (`id`),
   UNIQUE KEY `no` (`no`)
 )ENGINE =InnoDB DEFAULT CHARSET =utf8 COMMENT '电子书';
 
-CREATE TABLE `Publisher`(
+CREATE TABLE `publisher`(
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '提供方主键',
   `no` VARCHAR(20) DEFAULT NULL COMMENT '豆瓣提供方url中编号',
-  `introduce` VARCHAR(500) DEFAULT NULL COMMENT '供应商简介'
+  `introduce` VARCHAR(500) DEFAULT NULL COMMENT '供应商简介',
+  PRIMARY KEY (`id`)
 )ENGINE =InnoDB DEFAULT CHARSET utf8 COMMENT '电子书提供方';
 
 
@@ -94,3 +94,9 @@ now
 )VALUES ('2017-7-1');
 select * from test;
 
+
+ALTER TABLE `user_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
+ALTER TABLE `book_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
+ALTER TABLE `eBook_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
+ALTER TABLE `publisher` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
+ALTER TABLE `eBook_info` ADD COLUMN `pubTime` date DEFAULT NULL COMMENT '出版年份';
