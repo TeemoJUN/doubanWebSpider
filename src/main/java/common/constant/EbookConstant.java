@@ -49,7 +49,7 @@ public class EbookConstant {
     public static final String PROVIDER_XPATH = "/html/body/div/div[2]/article/div[1]/div[2]/div[1]/p[5]/span[2]/a/text()";
 
     /**
-     * 抽取eBook中的书籍字数
+     * 抽取eBook中的书籍字数 @TODO 要从文本中抽取数字
      */
     public static final String WORD_COUNT_XPATH = "/html/body/div/div[2]/article/div[1]/div[2]/div[1]/p[6]/span[2]/text()";
 
@@ -84,4 +84,8 @@ public class EbookConstant {
      * 抽取eBook中的书籍作平标签
      */
     public static final String KEY_WORDS_XPATH = "/html/body/div/div[2]/aside/section[3]/div[2]/meta/text()";
+
+    /**
+     * @TODO 抽取日期
+     */
 }

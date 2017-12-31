@@ -59,9 +59,9 @@ public class TestFirstSpider implements PageProcessor {
 //        System.out.println(html.xpath(EbookConstant.POPULAR_ANNOTATIONS_XPATH).get());
 //        System.out.println(html.xpath(EbookConstant.PRESS_XPATH).get());
 //        System.out.println(html.xpath(EbookConstant.SUBTITLE_XPATH).get());
-        System.out.println(html.xpath(EbookConstant.TRANSLATOR_XPATH));
-        System.out.println(html.xpath(EbookConstant.DESCRIPTION_XPATH));
-        System.out.println(html.xpath("/html/body/div/div[2]/article/div[3]/div[2]/div[2]/ol"));
+        //System.out.println(html.xpath(EbookConstant.TRANSLATOR_XPATH));
+        //System.out.println(html.xpath(EbookConstant.DESCRIPTION_XPATH));
+        //System.out.println(html.xpath("/html/body/div/div[2]/article/div[3]/div[2]/div[2]/ol"));
 
 
 
@@ -101,8 +101,10 @@ public class TestFirstSpider implements PageProcessor {
 
     @Test
     public void testSpider(){
-        Spider.create(new TestFirstSpider()).addUrl("https://read.douban.com/ebook/30390689/?icn=index-rec").addPipeline(new ConsolePipeline()).thread(1).run();
-
+     //   Spider.create(new TestFirstSpider()).addUrl("https://read.douban.com/ebook/30390689/?icn=index-rec").addPipeline(new ConsolePipeline()).thread(1).run();
+        //System.out.println(Integer.parseInt("dsf102"));
+        String a=null;
+        System.out.println(a.getBytes());
 //        /[\\d+]/
 //        String  str = "<a href=\",5094.1\">weblogic日志编码大全</a>";
 //        Pattern p = Pattern.compile("<a[^>]*>([^<]*)</a>");

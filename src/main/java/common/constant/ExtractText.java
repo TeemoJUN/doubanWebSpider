@@ -50,4 +50,13 @@ public class ExtractText {
         }
         return null;
     }
+
+    public static Integer stringToInteger(String string){
+        return Integer.parseInt(string);
+    }
+
+    public static Double stringToDouble(String string){
+        return Double.parseDouble(string);
+    }
+
 }
