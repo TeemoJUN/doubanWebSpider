@@ -219,4 +219,28 @@ public class EbookInfo {
     public void setPubtime(Date pubtime) {
         this.pubtime = pubtime;
     }
+
+    @Override
+    public String toString() {
+        return "EbookInfo{" +
+                "id=" + id +
+                ", \n no='" + no + '\'' +
+                ", \n title='" + title + '\'' +
+                ", \n subtitle='" + subtitle + '\'' +
+                ", \n authorName='" + authorName + '\'' +
+                ", \n translator='" + translator + '\'' +
+                ", \n label='" + label + '\'' +
+                ", \n press='" + press + '\'' +
+                ", \n provider='" + provider + '\'' +
+                ", \n wordCount=" + wordCount +
+                ", \n rating=" + rating +
+                ", \n comments=" + comments +
+                ", \n currentPrice=" + currentPrice +
+                ", \n description='" + description + '\'' +
+                ", \n popularAnnotations='" + popularAnnotations + '\'' +
+                ", \n keyWords='" + keyWords + '\'' +
+                ", \n url='" + url + '\'' +
+                ", \n pubtime=" + pubtime +
+                "} \n";
+    }
 }

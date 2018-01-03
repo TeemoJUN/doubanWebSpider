@@ -17,6 +17,6 @@ public class EbookPipeline implements Pipeline {
 
 
     public void process(ResultItems resultItems, Task task) {
-
+        //System.out.println(resultItems.get("ebookInfo"));
     }
 }

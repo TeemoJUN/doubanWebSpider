@@ -6,6 +6,8 @@ import common.constant.ExtractText;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spider.read.douban.com.service.pageProcessor.EbookPageProcessor;
+import spider.read.douban.com.service.pipeline.EbookPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -101,37 +103,10 @@ public class TestFirstSpider implements PageProcessor {
 
     @Test
     public void testSpider(){
-     //   Spider.create(new TestFirstSpider()).addUrl("https://read.douban.com/ebook/30390689/?icn=index-rec").addPipeline(new ConsolePipeline()).thread(1).run();
-        //System.out.println(Integer.parseInt("dsf102"));
-        String a=null;
-        System.out.println(a.getBytes());
-//        /[\\d+]/
-//        String  str = "<a href=\",5094.1\">weblogic日志编码大全</a>";
-//        Pattern p = Pattern.compile("<a[^>]*>([^<]*)</a>");
-//        Matcher m = p.matcher(str);
-//        while(m.find()) {
-//            //System.out.println("qq");
-//            System.out.println(m.group());
-//        }
-//
-//        String str2="<span class=\"labeled-text\"><a class=\"author-item\" href=\"/search?q=%E5%BC%A0%E6%99%93%E6%9E%97\">张晓林</a><a class=\"author-item\" href=\"/search?q=%E4%B9%94%E9%9B%81\">乔雁</a></span>\n";
-//        Pattern p = Pattern.compile("<a[^>]*>([^<]*)</a>");
-//        Matcher m=p.matcher(str2);
-//        while(m.find()){
-//            System.out.println(m.group(1));
-//        }
-        //   "<p[^>]*>([^<]*)</p>"
-
-
-//        String str="https://read.douban.com/ebook/30390689/?icn=index-rec";
-//
-//        Pattern p=Pattern.compile("/(\\d+)");
-//
-//        Matcher m=p.matcher(str);
-//        //System.out.println(m.find());
-//        while(m.find()){
-//            System.out.println(m.group(1));
-//        }
+        Spider.create(new EbookPageProcessor())
+                .addUrl("https://read.douban.com/ebook/43125079/?icn=index-topic")
+                .addPipeline(new EbookPipeline())
+                .thread(1).run();
     }
 
 }

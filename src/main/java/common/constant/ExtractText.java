@@ -23,6 +23,26 @@ public class ExtractText {
      */
     public static final String GET_P_TEXT_REGEX="<p[^>]*>([^<]*)</p>";
 
+
+    /**
+     * 获取评论人数
+     * @param string "147 评论"
+     * @return
+     */
+    public static Integer getComments(String string){
+        return stringToInteger(string.split("\\ ")[0]);
+    }
+
+    /**
+     * 获取价格
+     * @param string "￥7.99"
+     * @return
+     */
+    public static Double getCurrentPrice(String string){
+        return stringToDouble(string.replace("￥",""));
+    }
+
+
     public static String getText(String str,String regex){
         StringBuffer stringBuffer=new StringBuffer();
         Pattern pattern=Pattern.compile(regex);
@@ -52,11 +72,21 @@ public class ExtractText {
     }
 
     public static Integer stringToInteger(String string){
-        return Integer.parseInt(string);
+        try{
+            return Integer.parseInt(string);
+        }catch (NumberFormatException e){
+            logger.info("格式化转换异常 {}",string);
+        }
+        return null;
     }
 
     public static Double stringToDouble(String string){
-        return Double.parseDouble(string);
+        try{
+            return Double.parseDouble(string);
+        }catch (NumberFormatException e){
+            System.out.println("格式转换异常");
+        }
+        return null;
     }
 
 }
