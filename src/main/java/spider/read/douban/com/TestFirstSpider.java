@@ -3,6 +3,7 @@ package spider.read.douban.com;
 import com.google.common.collect.Maps;
 import common.constant.EbookConstant;
 import common.constant.ExtractText;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,90 +24,15 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TestFirstSpider implements PageProcessor {
-    Logger logger = LoggerFactory.getLogger(TestFirstSpider.class);
-
-
-    private ConcurrentMap<Object, Object> map = Maps.newConcurrentMap();
-    public void process(Page page) {
-       // int i = 0;
-        //int j = 0;
-        //List<String> targetList=new ArrayList<String>();
-        Html html=page.getHtml();
-        for (Selectable selectable : html.links().nodes()) {
-            //j++;
-            System.out.println("Link:" + selectable.toString());
-            //logger.info("Link : {}",selectable.get());
-        }
-//        System.out.println("该页面总计有"+j+"条链接");
-//        for(Selectable selectable:page.getHtml().links().nodes()) {
-//            //System.out.println("获取：" + selectable.regex("https://read\\.douban\\.com/ebook/\\d+/\\?icn=index-indie-rec").toString());
-//           if(selectable.regex("https://read\\.douban\\.com/ebook/\\d+/\\?icn=index-indie-rec").toString()!=null){
-//               i++;
-//               targetList.add(selectable.toString());
-//           }
-//        }
-
-
-
-//        Selectable title = html.xpath(EbookConstant.TITLE_XPATH);
-//        Selectable translator=html.xpath(EbookConstant.TRANSLATOR_XPATH);
-//        //System.out.println(translator.get());
-//        String user= ExtractText.getText(translator.get(),ExtractText.GET_A_TEXT_REGEX);
-//
-//        System.out.println(user);
-//
-//        System.out.println(ExtractText.getText(html.xpath(EbookConstant.DESCRIPTION_XPATH).get(),ExtractText.GET_P_TEXT_REGEX));
-//        System.out.println(html.xpath(EbookConstant.TITLE_XPATH).get());
-//        System.out.println(html.xpath(EbookConstant.POPULAR_ANNOTATIONS_XPATH).get());
-//        System.out.println(html.xpath(EbookConstant.PRESS_XPATH).get());
-//        System.out.println(html.xpath(EbookConstant.SUBTITLE_XPATH).get());
-        //System.out.println(html.xpath(EbookConstant.TRANSLATOR_XPATH));
-        //System.out.println(html.xpath(EbookConstant.DESCRIPTION_XPATH));
-        //System.out.println(html.xpath("/html/body/div/div[2]/article/div[3]/div[2]/div[2]/ol"));
-
-
-
-        //Selectable subtitle=html.xpath();
-        //Selectable authorName=html.xpath();
-
-        //System.out.println(title.get());
-        //System.out.println(translator);
-
-        //page.addTargetRequest(page.getHtml().links().regex("https://read\\.douban\\.com/ebook/\\d+/\\?icn=index-indie-rec").toString());
-        // System.out.println("获取总计：" +i+"条链接");
-        //page.addTargetRequests(targetList);
-        page.addTargetRequests(html.links().regex("https://read\\.douban\\.com/ebook/\\d+/.*").all());
-
-
-    }
-
-    private Site site = Site.me();
-
-    public Site getSite() {
-        return site;
-    }
-
-//    public static void main(String[] args) {
-//        // System.out.print("AAAAA"+"////");
-//        Spider.create(new TestFirstSpider()).addUrl("https://read.douban.com/").addPipeline(new ConsolePipeline()).thread(1).run();
-//        //  String s="https://read.douban.com/ebook/30390689/?icn=index-rec";
-//        //Pattern pattern=Pattern.compile("\\d+");
-//        // Matcher a=pattern.matcher(s);
-//        //System.out.println(a.groupCount());
-//        // System.out.println(a.group(0));
-//        //      while(a.find()){
-//        //        System.out.println(a.group());
-//        //  }
-//
-//    }
-
+public class TestFirstSpider{
     @Test
     public void testSpider(){
+        //System.out.println(ClassLoader.getSystemResource("log4j.properties"));
+        PropertyConfigurator.configure(ClassLoader.getSystemResource("log4j.properties"));
         Spider.create(new EbookPageProcessor())
-                .addUrl("https://read.douban.com/ebook/43125079/?icn=index-topic")
+                .addUrl("https://read.douban.com/ebook/21496892/?dcs=subject-buylink&dcm=douban&dct=26698660")
                 .addPipeline(new EbookPipeline())
-                .thread(1).run();
+                .thread(2).run();
     }
 
 }
