@@ -7,13 +7,24 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author wanzailin
+ * @date 2017/12/11
+ */
 public class ExtractText {
     static Logger logger = LoggerFactory.getLogger(ExtractText.class);
+
+
+    /**
+     * 抽取纯净的url
+     */
+    public static final String GET_CLEAN_URL_REGEX = "(https://read\\.douban\\.com/ebook/\\d+)/.*";
+
 
     /**
      * 抽取url中的豆瓣书籍编号
      */
-    public static final String GET_URL_REGEX = "/(\\d+)";
+    public static final String GET_NUM_URL_REGEX = "/(\\d+)";
 
     /**
      * 抽取a标签中的文本
@@ -34,6 +45,7 @@ public class ExtractText {
      */
     public static final String GET_KEY_WORLD_REGEX = "content=\"(.*)\"";
 
+
     /**
      * 获取评论人数
      *
@@ -41,7 +53,13 @@ public class ExtractText {
      * @return
      */
     public static Integer getComments(String string) {
-        return stringToInteger(string.split("\\ ")[0]);
+        try {
+            return stringToInteger(string.split("\\ ")[0]);
+
+        } catch (NullPointerException e) {
+            logger.warn("Comments格式不对 {} {}", string, e);
+        }
+        return null;
     }
 
     /**
@@ -60,6 +78,9 @@ public class ExtractText {
      * @return
      */
     public static String getText(String str, String regex) {
+        if (str == null) {
+            return null;
+        }
         StringBuffer stringBuffer = new StringBuffer();
         Pattern pattern = Pattern.compile(regex);
         Matcher m = pattern.matcher(str);
@@ -79,7 +100,7 @@ public class ExtractText {
     public static Integer getInteger(String url) {
         Integer result;
         String temp = null;
-        Pattern pattern = Pattern.compile(GET_URL_REGEX);
+        Pattern pattern = Pattern.compile(GET_NUM_URL_REGEX);
         Matcher m = pattern.matcher(url);
         while (m.find()) {
             temp = m.group(1);
@@ -115,6 +136,10 @@ public class ExtractText {
      * @return
      */
     public static Double stringToDouble(String string) {
+        if (string == null) {
+            logger.warn("string null");
+            return null;
+        }
         try {
             return Double.parseDouble(string);
         } catch (NumberFormatException e) {
@@ -133,7 +158,7 @@ public class ExtractText {
         if (list == null) {
             logger.debug("getWordCount 抽取字数为空 {}", list);
         }
-        if(list.size()<1){
+        if (list.size() < 1) {
             return null;
         }
         String string = null;

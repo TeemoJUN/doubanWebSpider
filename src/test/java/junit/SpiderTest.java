@@ -2,11 +2,8 @@ package junit;
 
 import common.constant.ExtractText;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import spider.read.douban.com.TestFirstSpider;
-import spider.read.douban.com.service.pageProcessor.EbookPageProcessor;
+import spider.read.douban.com.service.processor.EbookPageProcessor;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.pipeline.ConsolePipeline;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

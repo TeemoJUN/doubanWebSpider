@@ -2,6 +2,10 @@ package spider.book.douban.com.model;
 
 import java.util.Date;
 
+/**
+ * @author wanzailin
+ * @date 2017/12/11
+ */
 public class BookInfo {
     /**
      * 唯一主键

@@ -1,7 +1,10 @@
 package spider.read.douban.com.dao;
 
 import spider.read.douban.com.model.EbookInfo;
-
+/**
+ * @author wanzailin
+ * @date 2017/12/11
+ */
 public interface EbookInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
