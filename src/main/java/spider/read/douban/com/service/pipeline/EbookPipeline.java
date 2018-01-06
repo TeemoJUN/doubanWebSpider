@@ -16,8 +16,9 @@ import java.util.concurrent.ConcurrentMap;
 public class EbookPipeline implements Pipeline {
     Logger logger = LoggerFactory.getLogger(EbookPipeline.class);
 
-    private ConcurrentMap<Object, Object> map = Maps.newConcurrentMap();
+    private static final int MAX_SIZE=10000;
 
+    private ConcurrentMap<Object, Object> map = Maps.newConcurrentMap();
 
 
     public void process(ResultItems resultItems, Task task) {

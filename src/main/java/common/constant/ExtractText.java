@@ -12,14 +12,13 @@ import java.util.regex.Pattern;
  * @date 2017/12/11
  */
 public class ExtractText {
-    static Logger logger = LoggerFactory.getLogger(ExtractText.class);
 
+    static Logger logger = LoggerFactory.getLogger(ExtractText.class);
 
     /**
      * 抽取纯净的url
      */
     public static final String GET_CLEAN_URL_REGEX = "(https://read\\.douban\\.com/ebook/\\d+)/.*";
-
 
     /**
      * 抽取url中的豆瓣书籍编号
@@ -40,6 +39,7 @@ public class ExtractText {
      * 抽取字数 例如： 约 125000 字
      */
     public static final String GET_WORLD_COUNT_REGEX = "\\ (\\d+)\\ ";
+
     /**
      * 抽取作品标签 例如 "<meta itemprop=\"keywords\" content=\"情感,悬疑,爱情小说,都市小说,限时特价\">";
      */
@@ -69,6 +69,9 @@ public class ExtractText {
      * @return
      */
     public static Double getCurrentPrice(String string) {
+        if(string==null){
+            return null;
+        }
         return stringToDouble(string.replace("￥", ""));
     }
 
@@ -124,7 +127,7 @@ public class ExtractText {
         try {
             return Integer.parseInt(string);
         } catch (NumberFormatException e) {
-            logger.info("格式化转换异常 {}", string);
+            logger.info("stringToInteger格式化转换异常 {} {}", string,e);
         }
         return null;
     }
@@ -161,7 +164,7 @@ public class ExtractText {
         if (list.size() < 1) {
             return null;
         }
-        String string = null;
+        String string;
         try {
             string = list.get(list.size() - 1);
         } catch (Exception e) {
@@ -189,6 +192,9 @@ public class ExtractText {
      * @return
      */
     public static String getKeyWords(String string) {
+        if(string==null){
+            return null;
+        }
         Pattern pattern = Pattern.compile(GET_KEY_WORLD_REGEX);
         Matcher matcher = pattern.matcher(string);
         while (matcher.find()) {
@@ -197,5 +203,21 @@ public class ExtractText {
         return null;
     }
 
-
+    /**
+     * 获取url中的数字部分，若获取不到返回原来的
+     * @param str
+     * @param regex
+     * @return
+     */
+    public static String getNumber(String str, String regex) {
+        if (str == null) {
+            return null;
+        }
+        Pattern pattern = Pattern.compile(regex);
+        Matcher m = pattern.matcher(str);
+        while (m.find()) {
+            str=m.group(1);
+        }
+        return str;
+    }
 }
