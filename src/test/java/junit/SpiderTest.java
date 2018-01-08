@@ -87,8 +87,12 @@ public class SpiderTest {
         return str;
     }
 
+    @Test
+    public void test(){
+        while(true){
 
-
+        }
+    }
 
 
 
