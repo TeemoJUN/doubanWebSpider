@@ -224,23 +224,23 @@ public class EbookInfo {
     public String toString() {
         return "EbookInfo{" +
                 "id=" + id +
-                ", \n no='" + no + '\'' +
-                ", \n title='" + title + '\'' +
-                ", \n subtitle='" + subtitle + '\'' +
-                ", \n authorName='" + authorName + '\'' +
-                ", \n translator='" + translator + '\'' +
-                ", \n label='" + label + '\'' +
-                ", \n press='" + press + '\'' +
-                ", \n provider='" + provider + '\'' +
-                ", \n wordCount=" + wordCount +
-                ", \n rating=" + rating +
-                ", \n comments=" + comments +
-                ", \n currentPrice=" + currentPrice +
-                ", \n description='" + description + '\'' +
-                ", \n popularAnnotations='" + popularAnnotations + '\'' +
-                ", \n keyWords='" + keyWords + '\'' +
-                ", \n url='" + url + '\'' +
-                ", \n pubtime=" + pubtime +
-                "} \n";
+                ", no='" + no + '\'' +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", authorName='" + authorName + '\'' +
+                ", translator='" + translator + '\'' +
+                ", label='" + label + '\'' +
+                ", press='" + press + '\'' +
+                ", provider='" + provider + '\'' +
+                ", wordCount=" + wordCount +
+                ", rating=" + rating +
+                ", comments=" + comments +
+                ", currentPrice=" + currentPrice +
+                ", description='" + description + '\'' +
+                ", popularAnnotations='" + popularAnnotations + '\'' +
+                ", keyWords='" + keyWords + '\'' +
+                ", url='" + url + '\'' +
+                ", pubtime=" + pubtime +
+                '}';
     }
 }

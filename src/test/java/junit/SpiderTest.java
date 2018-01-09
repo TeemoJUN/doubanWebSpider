@@ -1,7 +1,9 @@
 package junit;
 
 import common.constant.ExtractText;
+import common.util.RedisUtil;
 import org.junit.Test;
+import redis.clients.jedis.Jedis;
 import spider.read.douban.com.service.processor.EbookPageProcessor;
 import us.codecraft.webmagic.Spider;
 
@@ -95,9 +97,18 @@ public class SpiderTest {
     }
 
 
+    @Test
+    public void testJedis(){
+        Jedis jedis= RedisUtil.getJedis();
+        //j.set("name","wanzailin");
+       System.out.println(jedis.llen("eBook"));
+    }
 
-
-
+    @Test
+    public void delJedis(){
+        Jedis jedis= RedisUtil.getJedis();
+        jedis.del("eBook");
+    }
 
 
 

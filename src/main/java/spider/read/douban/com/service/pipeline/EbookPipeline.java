@@ -1,8 +1,10 @@
 package spider.read.douban.com.service.pipeline;
 
 import com.google.common.collect.Maps;
+import common.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -21,7 +23,11 @@ public class EbookPipeline implements Pipeline {
     private ConcurrentMap<Object, Object> map = Maps.newConcurrentMap();
 
 
+    private static Jedis jedis= RedisUtil.getJedis();
+
+
     public void process(ResultItems resultItems, Task task) {
         //logger.info("搜到 {}",resultItems.get("ebookInfo"));
+        jedis.lpush("eBook",resultItems.get("ebookInfo").toString());
     }
 }

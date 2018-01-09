@@ -23,14 +23,14 @@ public class TestFirstSpider {
     public void testSpider() {
         PropertyConfigurator.configure(ClassLoader.getSystemResource("log4j.properties"));
         HttpClientDownloader httpClientDownloader=new HttpClientDownloader();
-        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
-                new Proxy("124.237.129.1",9999)
-        ));
+//        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
+//                new Proxy("124.237.129.1",9999)
+//        ));
         Spider.create(new EbookPageProcessor())
                 .addUrl("https://read.douban.com/ebooks/?dcs=book-nav&dcm=douban")
                 .addPipeline(new EbookPipeline())
                 .setDownloader(httpClientDownloader)
                 .setScheduler(new QueueScheduler().setDuplicateRemover(new NumberDuplicateRemover()))
-                .thread(5).run();
+                .thread(3).run();
     }
 }
