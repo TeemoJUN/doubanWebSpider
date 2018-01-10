@@ -1,26 +1,29 @@
 package junit;
 
-import common.constant.ExtractText;
+import common.constant.EbookExtractText;
 import common.util.RedisUtil;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
+import spider.read.douban.com.service.pipeline.EbookPipeline;
 import spider.read.douban.com.service.processor.EbookPageProcessor;
+import spider.read.douban.com.service.scheduler.NumberDuplicateRemover;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.downloader.HttpClientDownloader;
+import us.codecraft.webmagic.monitor.SpiderMonitor;
+import us.codecraft.webmagic.scheduler.QueueScheduler;
 
+import javax.management.JMException;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SpiderTest {
-    @Test
-    public void testSpider() {
-        Spider.create(new EbookPageProcessor()).addUrl("https://read.douban.com/ebook/43125079/?icn=index-topic")
-                .thread(1).run();
-    }
+
 
     @Test
     public void getInteger() {
         String str = "https://read.douban.com/ebook/43125079/?icn=index-topic";
-        System.out.println(ExtractText.getInteger(str));
+        System.out.println(EbookExtractText.getInteger(str));
 
         String str2 = "147 评价";
 
@@ -68,8 +71,8 @@ public class SpiderTest {
     public void testUrl() {
         String string = "https://read.douban.com/ebooks/?dcs=book-nav&dcm=douban";
 
-        String url=getNumber(string, ExtractText.GET_NUM_URL_REGEX);
-        System.out.println(" sdfs"+url);
+        String url = getNumber(string, EbookExtractText.GET_NUM_URL_REGEX);
+        System.out.println(" sdfs" + url);
     }
 
 
@@ -83,36 +86,62 @@ public class SpiderTest {
         System.out.println(m);
 
         while (m.find()) {
-            str=m.group(1);
+            str = m.group(1);
             System.out.println("aaa");
         }
         return str;
     }
 
     @Test
-    public void test(){
-        while(true){
-
+    public void test() {
+        Jedis jedis = RedisUtil.getJedis();
+        jedis.lpush("eBook", "wan");
+        System.out.println(jedis.lpop("eBook"));
+        for (int i = 0; i < 5; i++) {
+            System.out.println(jedis.lpop("Book"));
         }
+
+
     }
 
 
     @Test
-    public void testJedis(){
-        Jedis jedis= RedisUtil.getJedis();
+    public void testJedis() {
+        Jedis jedis = RedisUtil.getJedis();
         //j.set("name","wanzailin");
-       System.out.println(jedis.llen("eBook"));
+        //System.out.println(jedis.llen("eBook"));
+        System.out.println(jedis.lrange("eBook", 0, -1));
     }
 
     @Test
-    public void delJedis(){
-        Jedis jedis= RedisUtil.getJedis();
+    public void delJedis() {
+        Jedis jedis = RedisUtil.getJedis();
         jedis.del("eBook");
     }
 
+    @Test
+    public void testSpider() throws JMException {
+        // PropertyConfigurator.configure(ClassLoader.getSystemResource("log4j.properties"));
+        HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+//        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
+//                new Proxy("124.237.129.1",9999)
+//        ));
+        Spider douBanEBook = Spider.create(new EbookPageProcessor())
+                .addUrl("https://read.douban.com/ebooks/?dcs=book-nav&dcm=douban")
+                .addPipeline(new EbookPipeline())
+                .setDownloader(httpClientDownloader)
+                .setScheduler(new QueueScheduler().setDuplicateRemover(new NumberDuplicateRemover()))
+                .thread(3);
+        SpiderMonitor.instance().register(douBanEBook);
+        douBanEBook.run();
+    }
 
 
+    @Test
+    public void testDate() {
+        Date date=new Date(100,10,1);
 
-
+        System.out.println(date);
+    }
 
 }

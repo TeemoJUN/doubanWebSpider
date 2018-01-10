@@ -3,17 +3,20 @@ package common.constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * EBook抽取文字信息
+ *
  * @author wanzailin
  * @date 2017/12/11
  */
-public class ExtractText {
+public class EbookExtractText {
 
-    static Logger logger = LoggerFactory.getLogger(ExtractText.class);
+    static Logger logger = LoggerFactory.getLogger(EbookExtractText.class);
 
     /**
      * 抽取纯净的url
@@ -69,7 +72,7 @@ public class ExtractText {
      * @return
      */
     public static Double getCurrentPrice(String string) {
-        if(string==null){
+        if (string == null) {
             return null;
         }
         return stringToDouble(string.replace("￥", ""));
@@ -127,7 +130,7 @@ public class ExtractText {
         try {
             return Integer.parseInt(string);
         } catch (NumberFormatException e) {
-            logger.info("stringToInteger格式化转换异常 {} {}", string,e);
+            logger.info("stringToInteger格式化转换异常 {} {}", string, e);
         }
         return null;
     }
@@ -192,7 +195,7 @@ public class ExtractText {
      * @return
      */
     public static String getKeyWords(String string) {
-        if(string==null){
+        if (string == null) {
             return null;
         }
         Pattern pattern = Pattern.compile(GET_KEY_WORLD_REGEX);
@@ -205,6 +208,7 @@ public class ExtractText {
 
     /**
      * 获取url中的数字部分，若获取不到返回原来的
+     *
      * @param str
      * @param regex
      * @return
@@ -216,8 +220,50 @@ public class ExtractText {
         Pattern pattern = Pattern.compile(regex);
         Matcher m = pattern.matcher(str);
         while (m.find()) {
-            str=m.group(1);
+            str = m.group(1);
         }
         return str;
+    }
+
+    /**
+     * 获取页面中的出版时间，并将其合理转换
+     *
+     * @param string "2017-10"
+     * @return
+     */
+    public static Date stringToDate(String string) {
+        if (string == null) {
+            return null;
+        }
+        try {
+            String[] s = string.split("-");
+            int year = 0;
+            int month = 0;
+            int day = 1;
+            switch (s.length) {
+                case 1:
+                    year = stringToInteger(s[0]) - 1900;
+                    month = 1;
+                    day = 1;
+                    break;
+                case 2:
+                    year = stringToInteger(s[0]) - 1900;
+                    month = stringToInteger(s[1]) - 1;
+                    day = 1;
+                    break;
+                case 3:
+                    year = stringToInteger(s[0]);
+                    month = stringToInteger(s[1]);
+                    day = stringToInteger(s[2]);
+                    break;
+                default:
+                    return null;
+            }
+            Date date = new Date(year, month, day);
+            return date;
+        } catch (Exception e) {
+            logger.warn("pubTime 获取失败 {} {}", e, string);
+        }
+        return null;
     }
 }

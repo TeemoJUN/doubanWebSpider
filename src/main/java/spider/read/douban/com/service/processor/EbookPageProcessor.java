@@ -1,16 +1,16 @@
 package spider.read.douban.com.service.processor;
 
 import common.constant.EbookConstant;
-import common.constant.ExtractText;
+import common.constant.EbookExtractText;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import spider.read.douban.com.model.EbookInfo;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +18,7 @@ import java.util.List;
  * @author wanzailin
  * @date 2017/12/22
  */
+@Service
 public class EbookPageProcessor implements PageProcessor {
     Logger logger = LoggerFactory.getLogger(EbookPageProcessor.class);
 
@@ -40,7 +41,7 @@ public class EbookPageProcessor implements PageProcessor {
 
         EbookInfo ebookInfo = new EbookInfo();
         try{
-            ebookInfo.setNo(ExtractText.getInteger(page.getUrl().get()).toString());
+            ebookInfo.setNo(EbookExtractText.getInteger(page.getUrl().get()).toString());
         }catch (NullPointerException e){
             logger.warn("URL 不合格 {} {}" ,e,page.getUrl().get());
         }
@@ -60,13 +61,13 @@ public class EbookPageProcessor implements PageProcessor {
 
         try {
 
-            ebookInfo.setComments(ExtractText.getComments(html.xpath(EbookConstant.COMMENTS_XPATH).get()));
+            ebookInfo.setComments(EbookExtractText.getComments(html.xpath(EbookConstant.COMMENTS_XPATH).get()));
         } catch (NullPointerException e) {
             logger.info("Comments 为NULL {}", e);
         }
 
         try {
-            ebookInfo.setCurrentPrice(ExtractText.getCurrentPrice(
+            ebookInfo.setCurrentPrice(EbookExtractText.getCurrentPrice(
                     html.xpath(EbookConstant.CURRENT_PRICE_XPATH).get()));
         } catch (Exception e) {
             logger.info("CurrentPrice 为NULL {}", e);
@@ -85,7 +86,7 @@ public class EbookPageProcessor implements PageProcessor {
         }
 
         try {
-            ebookInfo.setKeyWords(ExtractText.getKeyWords(html.xpath(EbookConstant.KEY_WORDS_XPATH).get()));
+            ebookInfo.setKeyWords(EbookExtractText.getKeyWords(html.xpath(EbookConstant.KEY_WORDS_XPATH).get()));
 
         } catch (NullPointerException e) {
             logger.info("KeyWords {} 为NULL", e);
@@ -98,7 +99,7 @@ public class EbookPageProcessor implements PageProcessor {
         }
 
         try {
-            ebookInfo.setRating(ExtractText.stringToDouble(html.xpath(EbookConstant.RATING_XPATH).get()));
+            ebookInfo.setRating(EbookExtractText.stringToDouble(html.xpath(EbookConstant.RATING_XPATH).get()));
 
         } catch (NullPointerException e) {
             logger.info("Rating {} 为NULL", e);
@@ -111,30 +112,30 @@ public class EbookPageProcessor implements PageProcessor {
         }
 
         try {
-            ebookInfo.setTranslator(ExtractText.getText(html.xpath(
-                    EbookConstant.TRANSLATOR_XPATH).get(), ExtractText.GET_A_TEXT_REGEX));
+            ebookInfo.setTranslator(EbookExtractText.getText(html.xpath(
+                    EbookConstant.TRANSLATOR_XPATH).get(), EbookExtractText.GET_A_TEXT_REGEX));
 
         } catch (NullPointerException e) {
             logger.info("Translator {} 为NULL", e);
         }
 
         try {
-            ebookInfo.setWordCount(ExtractText.getWordCount(html.xpath(EbookConstant.WORD_COUNT_XPATH).all()));
+            ebookInfo.setWordCount(EbookExtractText.getWordCount(html.xpath(EbookConstant.WORD_COUNT_XPATH).all()));
         } catch (NullPointerException e) {
             logger.info("WordCount {} 为NULL", e);
         }
 
         try {
-            ebookInfo.setDescription(ExtractText.getText(html.xpath(EbookConstant.DESCRIPTION_XPATH).get(),
-                    ExtractText.GET_P_TEXT_REGEX));
+            ebookInfo.setDescription(EbookExtractText.getText(html.xpath(EbookConstant.DESCRIPTION_XPATH).get(),
+                    EbookExtractText.GET_P_TEXT_REGEX));
 
         } catch (NullPointerException e) {
             logger.info("Description {} 为NULL", e);
         }
 
         try {
-            ebookInfo.setPopularAnnotations(ExtractText.getText(html.xpath(EbookConstant.POPULAR_ANNOTATIONS_XPATH)
-                    .get(), ExtractText.GET_A_TEXT_REGEX));
+            ebookInfo.setPopularAnnotations(EbookExtractText.getText(html.xpath(EbookConstant.POPULAR_ANNOTATIONS_XPATH)
+                    .get(), EbookExtractText.GET_A_TEXT_REGEX));
         } catch (NullPointerException e) {
             logger.info("PopularAnnotations {} 为NULL", e);
         }
@@ -144,6 +145,12 @@ public class EbookPageProcessor implements PageProcessor {
 
         } catch (NullPointerException e) {
             logger.info("Url {} 为NULL", e);
+        }
+
+        try{
+            ebookInfo.setPubtime(EbookExtractText.stringToDate(html.xpath(EbookConstant.PUBTIME_XPATH).get()));
+        }catch (NullPointerException e){
+            logger.info("Pubtime {} 为NULL",e);
         }
 
         page.putField("ebookInfo", ebookInfo);
@@ -160,7 +167,7 @@ public class EbookPageProcessor implements PageProcessor {
     private List<String> cleanUrl(List<String> urls) {
         List<String> result = new ArrayList<String>();
         for (String url : urls) {
-            result.add(ExtractText.getText(url, ExtractText.GET_CLEAN_URL_REGEX));
+            result.add(EbookExtractText.getText(url, EbookExtractText.GET_CLEAN_URL_REGEX));
         }
         return result;
     }

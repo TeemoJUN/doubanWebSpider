@@ -73,6 +73,7 @@ CREATE TABLE `eBook_info`(
   `description` varchar(2000) DEFAULT NULL COMMENT '导言',
   `popular_annotations` varchar(2000) DEFAULT NULL COMMENT '热门划线',
   `key_words` varchar(50) DEFAULT NULL COMMENT '作品标签',
+   `pubTime` date DEFAULT NULL COMMENT '出版年份',
   PRIMARY KEY (`id`),
   UNIQUE KEY `no` (`no`)
 )ENGINE =InnoDB DEFAULT CHARSET =utf8 COMMENT '电子书';
@@ -100,5 +101,7 @@ ALTER TABLE `book_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
 ALTER TABLE `eBook_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
 ALTER TABLE `publisher` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
 ALTER TABLE `eBook_info` ADD COLUMN `pubTime` date DEFAULT NULL COMMENT '出版年份';
+
+
 
 SHOW CREATE TABLE eBook_info;

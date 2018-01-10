@@ -1,7 +1,15 @@
 package spider.read.douban.com.model;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 
+/**
+ * 电子书
+ *
+ * @author wanzailin
+ * @date 2018/01/10
+ */
 public class EbookInfo {
     /**
      * 唯一主键

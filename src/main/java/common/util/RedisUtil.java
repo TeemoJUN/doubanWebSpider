@@ -4,6 +4,12 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+/**
+ * 获取redis的链接
+ *
+ * @author wanzailin
+ * @date 2018/01/09
+ */
 public class RedisUtil {
 
     //Redis服务器IP
@@ -11,13 +17,6 @@ public class RedisUtil {
 
     //Redis的端口号
     private static int PORT = 6379;
-
-    //访问密码
-    //private static String AUTH = "admin";
-
-    //可用连接实例的最大数目，默认值为8；
-    //如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
-    private static int MAX_ACTIVE = 1024;
 
     //控制一个pool最多有多少个状态为idle(空闲的)的jedis实例，默认值也是8。
     private static int MAX_IDLE = 200;
@@ -38,9 +37,9 @@ public class RedisUtil {
     static {
         try {
             JedisPoolConfig config = new JedisPoolConfig();
-           // config.setMaxActive(MAX_ACTIVE);
+            // config.setMaxActive(MAX_ACTIVE);
             config.setMaxIdle(MAX_IDLE);
-           // config.setMaxWait(MAX_WAIT);
+            // config.setMaxWait(MAX_WAIT);
             config.setTestOnBorrow(TEST_ON_BORROW);
             jedisPool = new JedisPool(config, ADDR, PORT, TIMEOUT);
         } catch (Exception e) {
@@ -57,6 +56,7 @@ public class RedisUtil {
         try {
             if (jedisPool != null) {
                 Jedis resource = jedisPool.getResource();
+                resource.objectEncoding("UTF-8");
                 return resource;
             } else {
                 return null;

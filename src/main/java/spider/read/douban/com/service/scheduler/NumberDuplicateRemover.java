@@ -1,8 +1,9 @@
 package spider.read.douban.com.service.scheduler;
 
-import common.constant.ExtractText;
+import common.constant.EbookExtractText;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.scheduler.component.HashSetDuplicateRemover;
 
@@ -15,6 +16,7 @@ import us.codecraft.webmagic.scheduler.component.HashSetDuplicateRemover;
  * @author wanzailin
  * @date 2017/12/22
  */
+@Service
 public class NumberDuplicateRemover extends HashSetDuplicateRemover {
     Logger logger = LoggerFactory.getLogger(NumberDuplicateRemover.class);
 
@@ -26,6 +28,6 @@ public class NumberDuplicateRemover extends HashSetDuplicateRemover {
      */
     @Override
     public String getUrl(Request request) {
-        return ExtractText.getText(request.getUrl(), ExtractText.GET_NUM_URL_REGEX);
+        return EbookExtractText.getText(request.getUrl(), EbookExtractText.GET_NUM_URL_REGEX);
     }
 }
