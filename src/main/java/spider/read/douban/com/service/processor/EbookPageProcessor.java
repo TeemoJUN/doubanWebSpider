@@ -23,7 +23,7 @@ public class EbookPageProcessor implements PageProcessor {
     Logger logger = LoggerFactory.getLogger(EbookPageProcessor.class);
 
     Site site = Site.me().setCharset("UTF-8").addHeader("Accept-Encoding", "/")
-            .setRetrySleepTime(2).setSleepTime(7000).setTimeOut(7000);
+            .setRetrySleepTime(2).setSleepTime(5000).setTimeOut(7000);
 
     @Override
     public void process(Page page) {
@@ -38,16 +38,29 @@ public class EbookPageProcessor implements PageProcessor {
     public void createEbookInfo(Page page) {
 
         Html html = page.getHtml();
-
         EbookInfo ebookInfo = new EbookInfo();
-        try{
-            ebookInfo.setNo(EbookExtractText.getInteger(page.getUrl().get()).toString());
-        }catch (NullPointerException e){
-            logger.warn("URL 不合格 {} {}" ,e,page.getUrl().get());
+        List<String> list = cleanUrl(html.links().regex("https://read\\.douban\\.com/.*").all());
+        page.addTargetRequests(list);
+        try {
+            String no = EbookExtractText.getInteger(page.getUrl().get()).toString();
+            if (no == null) {
+                page.setSkip(true);
+                return;
+            } else {
+                ebookInfo.setNo(no);
+            }
+        } catch (NullPointerException e) {
+            logger.warn("URL 不合格 {} {}", e, page.getUrl().get());
         }
 
         try {
-            ebookInfo.setTitle(html.xpath(EbookConstant.TITLE_XPATH).get());
+            String title = html.xpath(EbookConstant.TITLE_XPATH).get();
+            if (title == null) {
+                page.setSkip(true);
+                return;
+            } else {
+                ebookInfo.setTitle(title);
+            }
         } catch (NullPointerException e) {
             page.setSkip(true);
             logger.info("Title {} 为NULL", e);
@@ -147,15 +160,14 @@ public class EbookPageProcessor implements PageProcessor {
             logger.info("Url {} 为NULL", e);
         }
 
-        try{
+        try {
             ebookInfo.setPubtime(EbookExtractText.stringToDate(html.xpath(EbookConstant.PUBTIME_XPATH).get()));
-        }catch (NullPointerException e){
-            logger.info("Pubtime {} 为NULL",e);
+        } catch (NullPointerException e) {
+            logger.info("Pubtime {} 为NULL", e);
         }
 
         page.putField("ebookInfo", ebookInfo);
-        List<String> list = cleanUrl(html.links().regex("https://read\\.douban\\.com/.*").all());
-        page.addTargetRequests(list);
+
     }
 
     /**

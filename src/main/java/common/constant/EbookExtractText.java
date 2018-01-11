@@ -239,22 +239,22 @@ public class EbookExtractText {
             String[] s = string.split("-");
             int year = 0;
             int month = 0;
-            int day = 1;
+            int day = 2;
             switch (s.length) {
                 case 1:
                     year = stringToInteger(s[0]) - 1900;
                     month = 1;
-                    day = 1;
+                    day = 2;
                     break;
                 case 2:
                     year = stringToInteger(s[0]) - 1900;
                     month = stringToInteger(s[1]) - 1;
-                    day = 1;
+                    day = 2;
                     break;
                 case 3:
                     year = stringToInteger(s[0]);
                     month = stringToInteger(s[1]);
-                    day = stringToInteger(s[2]);
+                    day = stringToInteger(s[2])+1;
                     break;
                 default:
                     return null;

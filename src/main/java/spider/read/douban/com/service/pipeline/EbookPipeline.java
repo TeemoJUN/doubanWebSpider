@@ -13,28 +13,27 @@ import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
 import javax.annotation.Resource;
+import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author wanzailin
  * @date 2017/12/22
  */
-@Service
+//@Service
+
 public class EbookPipeline implements Pipeline {
+    private BlockingDeque<EbookInfo> blockingDeque;
 
-    //Logger logger = LoggerFactory.getLogger(EbookPipeline.class);
 
-   // private ConcurrentMap<Object, Object> map = Maps.newConcurrentMap();
 
-    @Resource
-    private EbookInfoMapper ebookInfoMapper;
+    public EbookPipeline(BlockingDeque<EbookInfo> blockingDeque) {
+        this.blockingDeque = blockingDeque;
+    }
+
 
     public void process(ResultItems resultItems, Task task) {
-        //logger.info("搜到 {}",resultItems.get("ebookInfo"));
-        //jedis.lpush("eBook",resultItems.get("ebookInfo").toString());
-        // System.out.println(resultItems.get("ebookInfo").toString());
         EbookInfo ebookInfo = (EbookInfo) resultItems.get("ebookInfo");
-        ebookInfoMapper.insertSelective(ebookInfo);
-
+        blockingDeque.add(ebookInfo);
     }
 }

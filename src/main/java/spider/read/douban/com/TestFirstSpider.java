@@ -22,13 +22,13 @@ public class TestFirstSpider {
 //        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
 //                new Proxy("124.237.129.1",9999)
 //        ));
-        Spider douBanEBook=Spider.create(new EbookPageProcessor())
-                .addUrl("https://read.douban.com/ebooks/?dcs=book-nav&dcm=douban")
-                .addPipeline(new EbookPipeline())
-                .setDownloader(httpClientDownloader)
-                .setScheduler(new QueueScheduler().setDuplicateRemover(new NumberDuplicateRemover()))
-                .thread(3);
-        SpiderMonitor.instance().register(douBanEBook);
-        douBanEBook.run();
+//        Spider douBanEBook=Spider.create(new EbookPageProcessor())
+//                .addUrl("https://read.douban.com/ebooks/?dcs=book-nav&dcm=douban")
+//                .addPipeline(new EbookPipeline())
+//                .setDownloader(httpClientDownloader)
+//                .setScheduler(new QueueScheduler().setDuplicateRemover(new NumberDuplicateRemover()))
+//                .thread(3);
+//        SpiderMonitor.instance().register(douBanEBook);
+//        douBanEBook.run();
     }
 }

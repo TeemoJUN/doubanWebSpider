@@ -15,19 +15,33 @@ import us.codecraft.webmagic.downloader.HttpClientDownloader;
 @Service
 public class ExtendHttpClientDownloader extends HttpClientDownloader{
 
+    private Object object=new Object();
+
     @Override
-    protected void onSuccess(Request request) {
-
-        String successUrl=request.getUrl();
-
-        RedisUtil.getJedis().lpush("successUrl",successUrl);
+    public void onSuccess(Request request) {
+        Jedis jedis=RedisUtil.getJedis();
+       synchronized (object){
+           try{
+               String successUrl=request.getUrl();
+               jedis.lpush("successUrl",successUrl);
+           }finally {
+               RedisUtil.returnResource(jedis);
+           }
+       }
 
     }
 
-
     @Override
-    protected void onError(Request request) {
-        String errorUrl=request.getUrl();
-        RedisUtil.getJedis().lpush("errorUrl",errorUrl);
+    public void onError(Request request) {
+        Jedis jedis=RedisUtil.getJedis();
+        synchronized (object){
+            try{
+                String errorUrl=request.getUrl();
+                jedis.lpush("errorUrl",errorUrl);
+            }finally {
+                RedisUtil.returnResource(jedis);
+            }
+        }
     }
+
 }

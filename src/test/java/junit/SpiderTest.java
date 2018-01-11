@@ -2,6 +2,7 @@ package junit;
 
 import common.constant.EbookExtractText;
 import common.util.RedisUtil;
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import spider.read.douban.com.service.pipeline.EbookPipeline;
@@ -17,6 +18,10 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author wanzailin
+ * @date 2017/12/23
+ */
 public class SpiderTest {
 
 
@@ -53,6 +58,15 @@ public class SpiderTest {
         }
 
         System.out.println("END");
+
+        System.out.println("---------------------------");
+
+        String str6="图书 / 非虚构";
+        System.out.println(str6.replaceAll("\\ ","")+"   "+str6);
+
+        String str7="〔美〕卡尔·纽波特";
+        System.out.println("--"+str7.replaceAll("\\ ","")+"---"+str7);
+
 
 
     }
@@ -128,7 +142,7 @@ public class SpiderTest {
 //        ));
         Spider douBanEBook = Spider.create(new EbookPageProcessor())
                 .addUrl("https://read.douban.com/ebooks/?dcs=book-nav&dcm=douban")
-                .addPipeline(new EbookPipeline())
+                //.addPipeline(new EbookPipeline())
                 .setDownloader(httpClientDownloader)
                 .setScheduler(new QueueScheduler().setDuplicateRemover(new NumberDuplicateRemover()))
                 .thread(3);
@@ -143,5 +157,8 @@ public class SpiderTest {
 
         System.out.println(date);
     }
+
+
+
 
 }
