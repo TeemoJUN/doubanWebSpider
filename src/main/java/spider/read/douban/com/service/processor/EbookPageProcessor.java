@@ -20,10 +20,11 @@ import java.util.List;
  */
 @Service
 public class EbookPageProcessor implements PageProcessor {
+
     Logger logger = LoggerFactory.getLogger(EbookPageProcessor.class);
 
-    Site site = Site.me().setCharset("UTF-8").addHeader("Accept-Encoding", "/")
-            .setRetrySleepTime(2).setSleepTime(5000).setTimeOut(7000);
+    Site site = Site.me().setCharset("UTF-8").addHeader("Accept-Encoding", "/").setRetrySleepTime(2)
+            .setSleepTime(5000).setTimeOut(7000);
 
     @Override
     public void process(Page page) {
@@ -38,133 +39,61 @@ public class EbookPageProcessor implements PageProcessor {
     public void createEbookInfo(Page page) {
 
         Html html = page.getHtml();
+
         EbookInfo ebookInfo = new EbookInfo();
+
         List<String> list = cleanUrl(html.links().regex("https://read\\.douban\\.com/.*").all());
         page.addTargetRequests(list);
-        try {
-            String no = EbookExtractText.getInteger(page.getUrl().get()).toString();
-            if (no == null) {
-                page.setSkip(true);
-                return;
-            } else {
-                ebookInfo.setNo(no);
-            }
-        } catch (NullPointerException e) {
-            logger.warn("URL 不合格 {} {}", e, page.getUrl().get());
-        }
 
-        try {
-            String title = html.xpath(EbookConstant.TITLE_XPATH).get();
-            if (title == null) {
-                page.setSkip(true);
-                return;
-            } else {
-                ebookInfo.setTitle(title);
-            }
-        } catch (NullPointerException e) {
+        String no = EbookExtractText.getInteger(page.getUrl().get()).toString();
+        if (no == null) {
             page.setSkip(true);
-            logger.info("Title {} 为NULL", e);
+            return;
+        } else {
+            ebookInfo.setNo(no);
         }
 
-        try {
-            ebookInfo.setAuthorName(html.xpath(EbookConstant.AUTHOR_NAME_XPATH).get());
-        } catch (NullPointerException e) {
-            logger.info("AuthorName 为NULL {}", e);
+        String title = html.xpath(EbookConstant.TITLE_XPATH).get();
+        if (title == null) {
+            page.setSkip(true);
+            return;
+        } else {
+            ebookInfo.setTitle(title);
         }
 
-        try {
+        ebookInfo.setAuthorName(html.xpath(EbookConstant.AUTHOR_NAME_XPATH).get());
 
-            ebookInfo.setComments(EbookExtractText.getComments(html.xpath(EbookConstant.COMMENTS_XPATH).get()));
-        } catch (NullPointerException e) {
-            logger.info("Comments 为NULL {}", e);
-        }
+        ebookInfo.setComments(EbookExtractText.getComments(html.xpath(EbookConstant.COMMENTS_XPATH).get()));
 
-        try {
-            ebookInfo.setCurrentPrice(EbookExtractText.getCurrentPrice(
-                    html.xpath(EbookConstant.CURRENT_PRICE_XPATH).get()));
-        } catch (Exception e) {
-            logger.info("CurrentPrice 为NULL {}", e);
-        }
+        ebookInfo.setCurrentPrice(EbookExtractText.getCurrentPrice(html.xpath(EbookConstant.CURRENT_PRICE_XPATH)
+                .get()));
 
-        try {
-            ebookInfo.setLabel(html.xpath(EbookConstant.LABEL_XPATH).get());
-        } catch (NullPointerException e) {
-            logger.info("Label {} 为NULL", e);
-        }
+        ebookInfo.setLabel(html.xpath(EbookConstant.LABEL_XPATH).get());
 
-        try {
-            ebookInfo.setSubtitle(html.xpath(EbookConstant.SUBTITLE_XPATH).get());
-        } catch (NullPointerException e) {
-            logger.info("Subtitle {} 为NULL", e);
-        }
+        ebookInfo.setSubtitle(html.xpath(EbookConstant.SUBTITLE_XPATH).get());
 
-        try {
-            ebookInfo.setKeyWords(EbookExtractText.getKeyWords(html.xpath(EbookConstant.KEY_WORDS_XPATH).get()));
+        ebookInfo.setKeyWords(EbookExtractText.getKeyWords(html.xpath(EbookConstant.KEY_WORDS_XPATH).get()));
 
-        } catch (NullPointerException e) {
-            logger.info("KeyWords {} 为NULL", e);
-        }
+        ebookInfo.setPress(html.xpath(EbookConstant.PRESS_XPATH).get());
 
-        try {
-            ebookInfo.setPress(html.xpath(EbookConstant.PRESS_XPATH).get());
-        } catch (NullPointerException e) {
-            logger.info("Press {} 为NULL", e);
-        }
+        ebookInfo.setRating(EbookExtractText.stringToDouble(html.xpath(EbookConstant.RATING_XPATH).get()));
 
-        try {
-            ebookInfo.setRating(EbookExtractText.stringToDouble(html.xpath(EbookConstant.RATING_XPATH).get()));
+        ebookInfo.setProvider(html.xpath(EbookConstant.PROVIDER_XPATH).get());
 
-        } catch (NullPointerException e) {
-            logger.info("Rating {} 为NULL", e);
-        }
-        try {
-            ebookInfo.setProvider(html.xpath(EbookConstant.PROVIDER_XPATH).get());
+        ebookInfo.setTranslator(EbookExtractText.getText(html.xpath(EbookConstant.TRANSLATOR_XPATH).get(),
+                EbookExtractText.GET_A_TEXT_REGEX));
 
-        } catch (NullPointerException e) {
-            logger.info("Provider {} 为NULL", e);
-        }
+        ebookInfo.setWordCount(EbookExtractText.getWordCount(html.xpath(EbookConstant.WORD_COUNT_XPATH).all()));
 
-        try {
-            ebookInfo.setTranslator(EbookExtractText.getText(html.xpath(
-                    EbookConstant.TRANSLATOR_XPATH).get(), EbookExtractText.GET_A_TEXT_REGEX));
+        ebookInfo.setDescription(EbookExtractText.getText(html.xpath(EbookConstant.DESCRIPTION_XPATH).get(),
+                EbookExtractText.GET_P_TEXT_REGEX));
 
-        } catch (NullPointerException e) {
-            logger.info("Translator {} 为NULL", e);
-        }
+        ebookInfo.setPopularAnnotations(EbookExtractText.getText(html.xpath(EbookConstant.POPULAR_ANNOTATIONS_XPATH)
+                .get(), EbookExtractText.GET_A_TEXT_REGEX));
 
-        try {
-            ebookInfo.setWordCount(EbookExtractText.getWordCount(html.xpath(EbookConstant.WORD_COUNT_XPATH).all()));
-        } catch (NullPointerException e) {
-            logger.info("WordCount {} 为NULL", e);
-        }
+        ebookInfo.setUrl(page.getUrl().get());
 
-        try {
-            ebookInfo.setDescription(EbookExtractText.getText(html.xpath(EbookConstant.DESCRIPTION_XPATH).get(),
-                    EbookExtractText.GET_P_TEXT_REGEX));
-
-        } catch (NullPointerException e) {
-            logger.info("Description {} 为NULL", e);
-        }
-
-        try {
-            ebookInfo.setPopularAnnotations(EbookExtractText.getText(html.xpath(EbookConstant.POPULAR_ANNOTATIONS_XPATH)
-                    .get(), EbookExtractText.GET_A_TEXT_REGEX));
-        } catch (NullPointerException e) {
-            logger.info("PopularAnnotations {} 为NULL", e);
-        }
-
-        try {
-            ebookInfo.setUrl(page.getUrl().get());
-
-        } catch (NullPointerException e) {
-            logger.info("Url {} 为NULL", e);
-        }
-
-        try {
-            ebookInfo.setPubtime(EbookExtractText.stringToDate(html.xpath(EbookConstant.PUBTIME_XPATH).get()));
-        } catch (NullPointerException e) {
-            logger.info("Pubtime {} 为NULL", e);
-        }
+        ebookInfo.setPubtime(EbookExtractText.stringToDate(html.xpath(EbookConstant.PUBTIME_XPATH).get()));
 
         page.putField("ebookInfo", ebookInfo);
 

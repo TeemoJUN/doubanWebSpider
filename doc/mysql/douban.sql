@@ -114,5 +114,7 @@ ALTER TABLE `eBook_info` MODIFY title  VARCHAR(50) DEFAULT NULL COMMENT '书名'
 ALTER TABLE `eBook_info` MODIFY subtitle  VARCHAR(70) DEFAULT NULL COMMENT '书名';
 ALTER TABLE `eBook_info` MODIFY `press` varchar(40) DEFAULT NULL COMMENT '出版社';
 
+ALTER TABLE `eBook_info` MODIFY `no` INT(10) NOT NULL COMMENT '豆瓣图书编号,url中数字';
+
 
 SHOW CREATE TABLE eBook_info;
