@@ -3,6 +3,8 @@ package spider.read.douban.com.dao;
 import org.springframework.stereotype.Repository;
 import spider.read.douban.com.model.EbookInfo;
 
+import java.util.List;
+
 /**
  * @author wanzailin
  * @date 2017/12/11
@@ -24,4 +26,6 @@ public interface EbookInfoMapper {
 
     //test@TODO,多个参数时mybatis无法识别
     //int selectByprimaryKey(@Param("AA") int AA,@Param("BB") int BB);
+
+    List<EbookInfo> selectListByAny(EbookInfo ebookInfo);
 }

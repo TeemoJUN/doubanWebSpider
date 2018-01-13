@@ -8,6 +8,7 @@ import spider.read.douban.com.model.EbookInfo;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 配置spring和junit整合，
@@ -47,7 +48,7 @@ public class EbookInfoMapperTest {
     @Test
     public void selectByPrimaryKey() throws Exception {
         int i=100;
-        System.out.println(ebookInfoMapper.selectByPrimaryKey(100));
+        System.out.println(ebookInfoMapper.selectByPrimaryKey(10000));
     }
 
     @Test
@@ -56,6 +57,15 @@ public class EbookInfoMapperTest {
 
     @Test
     public void updateByPrimaryKey() throws Exception {
+    }
+
+    @Test
+    public void selectListByAny()throws Exception{
+        EbookInfo ebookInfo=new EbookInfo();
+        ebookInfo.setAuthorName("王小波");
+        ebookInfo.setRating(8.8);
+        List<EbookInfo> list=ebookInfoMapper.selectListByAny(ebookInfo);
+        System.out.println(list.size());
     }
 
 }

@@ -22,12 +22,70 @@
     <result column="pubTime" jdbcType="DATE" property="pubtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, no, title, subtitle, author_name, translator, label, press, provider, word_count, 
-    rating, comments, current_price, description, popular_annotations, key_words, url, 
+    id, no, title, subtitle, author_name, translator, label, press, provider, word_count,
+    rating, comments, current_price, description, popular_annotations, key_words, url,
     pubTime
   </sql>
+    <sql id="Query_Param_Where_Clause">
+        <where>
+            <if test="id != null">
+                and id= #{id,jdbcType=INTEGER}
+            </if>
+            <if test="no != null">
+                and no= #{no,jdbcType=VARCHAR}
+            </if>
+            <if test="title != null">
+                and title=#{title,jdbcType=VARCHAR}
+            </if>
+            <if test="subtitle != null">
+                and subtitle= #{subtitle,jdbcType=VARCHAR}
+            </if>
+            <if test="authorName != null">
+                and author_name= #{authorName,jdbcType=VARCHAR}
+            </if>
+            <if test="translator != null">
+                and translator=#{translator,jdbcType=VARCHAR},
+            </if>
+            <if test="label != null">
+                and label=#{label,jdbcType=VARCHAR}
+            </if>
+            <if test="press != null">
+                and press=#{press,jdbcType=VARCHAR}
+            </if>
+            <if test="provider != null">
+                and provider=#{provider,jdbcType=VARCHAR}
+            </if>
+            <if test="wordCount != null">
+                and word_count=#{wordCount,jdbcType=INTEGER}
+            </if>
+            <if test="rating != null">
+                and rating= #{rating,jdbcType=DOUBLE}
+            </if>
+            <if test="comments != null">
+                and comments=#{comments,jdbcType=INTEGER}
+            </if>
+            <if test="currentPrice != null">
+                and current_price=#{currentPrice,jdbcType=DOUBLE}
+            </if>
+            <if test="description != null">
+                and description=#{description,jdbcType=VARCHAR}
+            </if>
+            <if test="popularAnnotations != null">
+                and popular_annotations=#{popularAnnotations,jdbcType=VARCHAR}
+            </if>
+            <if test="keyWords != null">
+                and key_words=#{keyWords,jdbcType=VARCHAR}
+            </if>
+            <if test="url != null">
+                and url=#{url,jdbcType=VARCHAR}
+            </if>
+            <if test="pubtime != null">
+                and pubtime=#{pubtime,jdbcType=DATE}
+            </if>
+        </where>
+    </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from eBook_info
     where id = #{id,jdbcType=INTEGER}
@@ -37,18 +95,18 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="spider.read.douban.com.model.EbookInfo">
-    insert into eBook_info (id, no, title, 
-      subtitle, author_name, translator, 
-      label, press, provider, 
-      word_count, rating, comments, 
-      current_price, description, popular_annotations, 
+    insert into eBook_info (id, no, title,
+      subtitle, author_name, translator,
+      label, press, provider,
+      word_count, rating, comments,
+      current_price, description, popular_annotations,
       key_words, url, pubTime
       )
-    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{subtitle,jdbcType=VARCHAR}, #{authorName,jdbcType=VARCHAR}, #{translator,jdbcType=VARCHAR}, 
-      #{label,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR}, 
-      #{wordCount,jdbcType=INTEGER}, #{rating,jdbcType=DOUBLE}, #{comments,jdbcType=INTEGER}, 
-      #{currentPrice,jdbcType=DOUBLE}, #{description,jdbcType=VARCHAR}, #{popularAnnotations,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{subtitle,jdbcType=VARCHAR}, #{authorName,jdbcType=VARCHAR}, #{translator,jdbcType=VARCHAR},
+      #{label,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR},
+      #{wordCount,jdbcType=INTEGER}, #{rating,jdbcType=DOUBLE}, #{comments,jdbcType=INTEGER},
+      #{currentPrice,jdbcType=DOUBLE}, #{description,jdbcType=VARCHAR}, #{popularAnnotations,jdbcType=VARCHAR},
       #{keyWords,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{pubtime,jdbcType=DATE}
       )
   </insert>
@@ -245,4 +303,11 @@
       pubTime = #{pubtime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="selectListByAny" parameterType="spider.read.douban.com.model.EbookInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from eBook_info
+        <include refid="Query_Param_Where_Clause"/>
+    </select>
 </mapper>
