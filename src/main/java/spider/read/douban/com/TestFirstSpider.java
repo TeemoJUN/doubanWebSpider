@@ -16,6 +16,7 @@ import javax.management.JMException;
  * @date 2017/12/11
  */
 public class TestFirstSpider {
+
     public void testSpider() throws JMException {
         PropertyConfigurator.configure(ClassLoader.getSystemResource("log4j.properties"));
         HttpClientDownloader httpClientDownloader=new HttpClientDownloader();
