@@ -33,17 +33,17 @@ public class EbookInfoMapperTest {
 
     }
 
-    @Test
-    public void insertSelective() throws Exception {
-        Date date=new Date(100,10,2);
-        EbookInfo ebookInfo=new EbookInfo();
-        ebookInfo.setPubtime(date);
-        String no="12025";
-        ebookInfo.setNo(no);
-        String url="ulll";
-        ebookInfo.setUrl(url);
-        ebookInfoMapper.insertSelective(ebookInfo);
-    }
+//    @Test
+//    public void insertSelective() throws Exception {
+//        Date date=new Date(100,10,2);
+//        EbookInfo ebookInfo=new EbookInfo();
+//        ebookInfo.setPubtime(date);
+//        String no="12025";
+//        ebookInfo.setNo(no);
+//        String url="ulll";
+//        ebookInfo.setUrl(url);
+//        ebookInfoMapper.insertSelective(ebookInfo);
+//    }
 
     @Test
     public void selectByPrimaryKey() throws Exception {

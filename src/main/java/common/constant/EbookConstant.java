@@ -9,7 +9,7 @@ public class EbookConstant {
     /**
      * 抽取eBook的url的中唯一编号
      */
-    public static final String NO_REGEX = "/(\\d+)";
+    //public static final String NO_REGEX = "/(\\d+)";
 
     /**
      * 抽取eBook中书名
