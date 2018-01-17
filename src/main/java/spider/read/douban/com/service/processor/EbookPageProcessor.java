@@ -13,6 +13,8 @@ import us.codecraft.webmagic.selector.Html;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author wanzailin
@@ -103,7 +105,7 @@ public class EbookPageProcessor implements PageProcessor {
      * 将所有的url规范化
      *
      * @param urls
-     * @return
+     * @return 被格式话的url
      */
     private List<String> cleanUrl(List<String> urls) {
         List<String> result = new ArrayList<String>();
@@ -112,4 +114,13 @@ public class EbookPageProcessor implements PageProcessor {
         }
         return result;
     }
+
+    /**
+     * 将所有的url规范化，lambda 流式
+     */
+    private Function<List<String>,List<String>> resultUrl=urls->{
+        return urls.stream().map(url->{
+            return EbookExtractText.getText(url, EbookExtractText.GET_CLEAN_URL_REGEX);
+        }).collect(Collectors.toList());
+    };
 }
