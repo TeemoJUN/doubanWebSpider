@@ -13,5 +13,5 @@ import java.util.List;
  */
 @Repository
 public interface SelectTopMapper {
-    public List<BasicSelectView> selectTop(BasicSelectParam basicSelectParam);
+    List<BasicSelectView> selectTop(BasicSelectParam basicSelectParam);
 }

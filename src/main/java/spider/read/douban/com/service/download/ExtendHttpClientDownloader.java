@@ -1,8 +1,11 @@
 package spider.read.douban.com.service.download;
 
 import common.util.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import spider.read.douban.com.service.pipeline.EbookPipeline;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 
@@ -14,7 +17,7 @@ import us.codecraft.webmagic.downloader.HttpClientDownloader;
  */
 @Service
 public class ExtendHttpClientDownloader extends HttpClientDownloader{
-
+    Logger logger = LoggerFactory.getLogger(ExtendHttpClientDownloader.class);
     private Object object=new Object();
 
     @Override

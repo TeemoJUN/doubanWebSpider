@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import spider.read.douban.com.dao.EbookInfoMapper;
 import spider.read.douban.com.model.EbookInfo;
+import spider.read.douban.com.service.processor.EbookPageProcessor;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -23,6 +24,7 @@ import java.util.concurrent.ConcurrentMap;
 //@Service
 
 public class EbookPipeline implements Pipeline {
+    Logger logger = LoggerFactory.getLogger(EbookPipeline.class);
     private BlockingDeque<EbookInfo> blockingDeque;
 
 
