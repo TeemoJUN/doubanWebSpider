@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 /**
  * @author wanzailin
  * @date 2017/12/23
+ * 测试一些关于正则表达式的测试，看取值是不是合格
  */
 public class SpiderTest {
 

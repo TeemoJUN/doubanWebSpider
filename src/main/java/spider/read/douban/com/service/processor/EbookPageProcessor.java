@@ -47,6 +47,8 @@ public class EbookPageProcessor implements PageProcessor {
         List<String> list = cleanUrl(html.links().regex("https://read\\.douban\\.com/.*").all());
         page.addTargetRequests(list);
 
+       // page.addTargetRequests(resultUrl.apply(html.links().regex("https://read\\.douban\\.com/.*").all()));
+
         String no = EbookExtractText.getInteger(page.getUrl().get()).toString();
         if (no == null) {
             page.setSkip(true);

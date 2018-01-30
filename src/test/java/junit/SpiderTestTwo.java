@@ -24,6 +24,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 
+/**
+ * @author wanzailin
+ * @date 2017/12/26
+ *
+ * 测试拉取数据
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/spring-context.xml")
 public class SpiderTestTwo {
