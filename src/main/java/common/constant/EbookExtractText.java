@@ -3,6 +3,7 @@ package common.constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -231,7 +232,7 @@ public class EbookExtractText {
      * @param string "2017-10"
      * @return
      */
-    public static Date stringToDate(String string) {
+    public static LocalDate stringToDate(String string) {
         if (string == null) {
             return null;
         }
@@ -242,14 +243,12 @@ public class EbookExtractText {
             int day = 2;
             switch (s.length) {
                 case 1:
-                    year = stringToInteger(s[0]) - 1900;
+                    year = stringToInteger(s[0]);
                     month = 1;
-                    day = 2;
                     break;
                 case 2:
-                    year = stringToInteger(s[0]) - 1900;
-                    month = stringToInteger(s[1]) - 1;
-                    day = 2;
+                    year = stringToInteger(s[0]);
+                    month = stringToInteger(s[1]);
                     break;
                 case 3:
                     year = stringToInteger(s[0]);
@@ -259,7 +258,7 @@ public class EbookExtractText {
                 default:
                     return null;
             }
-            Date date = new Date(year, month, day);
+            LocalDate date = LocalDate.of(year, month, day);
             return date;
         } catch (Exception e) {
             logger.warn("pubTime 获取失败 {} {}", e, string);

@@ -2,6 +2,7 @@ package spider.read.douban.com.model;
 
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -82,7 +83,7 @@ public class EbookInfo {
     /**
      * 出版时间
      */
-    private Date pubtime;
+    private LocalDate pubtime;
 
     public Integer getId() {
         return id;
@@ -220,11 +221,11 @@ public class EbookInfo {
         this.url = url == null ? null : url.trim();
     }
 
-    public Date getPubtime() {
+    public LocalDate getPubtime() {
         return pubtime;
     }
 
-    public void setPubtime(Date pubtime) {
+    public void setPubtime(LocalDate pubtime) {
         this.pubtime = pubtime;
     }
 

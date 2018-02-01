@@ -7,6 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import spider.read.douban.com.model.EbookInfo;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -33,22 +34,11 @@ public class EbookInfoMapperTest {
 
     }
 
-//    @Test
-//    public void insertSelective() throws Exception {
-//        Date date=new Date(100,10,2);
-//        EbookInfo ebookInfo=new EbookInfo();
-//        ebookInfo.setPubtime(date);
-//        String no="12025";
-//        ebookInfo.setNo(no);
-//        String url="ulll";
-//        ebookInfo.setUrl(url);
-//        ebookInfoMapper.insertSelective(ebookInfo);
-//    }
 
     @Test
     public void selectByPrimaryKey() throws Exception {
         int i=100;
-        System.out.println(ebookInfoMapper.selectByPrimaryKey(10000));
+        System.out.println(ebookInfoMapper.selectByPrimaryKey(3160));
     }
 
     @Test
@@ -62,10 +52,12 @@ public class EbookInfoMapperTest {
     @Test
     public void selectListByAny()throws Exception{
         EbookInfo ebookInfo=new EbookInfo();
-        ebookInfo.setAuthorName("王小波");
-        ebookInfo.setRating(8.8);
+        //ebookInfo.setAuthorName("王小波");
+        //ebookInfo.setRating(8.8);
+        ebookInfo.setPubtime(LocalDate.of(2012, 1, 2));
         List<EbookInfo> list=ebookInfoMapper.selectListByAny(ebookInfo);
-        System.out.println(list.size());
+
+        System.out.println("-----------"+list.toString());
     }
 
 }

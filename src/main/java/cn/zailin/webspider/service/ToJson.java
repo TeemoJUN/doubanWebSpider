@@ -10,7 +10,6 @@ import spider.read.douban.com.service.SavingTask;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
