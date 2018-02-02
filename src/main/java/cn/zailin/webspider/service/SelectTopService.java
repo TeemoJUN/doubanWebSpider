@@ -22,7 +22,7 @@ public class SelectTopService {
     private ToJson toJson;
 
     /**
-     * 查询结果
+     * 查询结果,查询top几数据
      *
      * @param basicSelectParam
      * @return Json

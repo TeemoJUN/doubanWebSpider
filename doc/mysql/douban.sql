@@ -85,8 +85,9 @@ CREATE TABLE `publisher`(
   PRIMARY KEY (`id`)
 )ENGINE =InnoDB DEFAULT CHARSET utf8 COMMENT '电子书提供方';
 
-
+## -----------------------------------------------------------
 ## 测试
+
 CREATE TABLE `test`(
   `now` DATE
 );
@@ -94,6 +95,15 @@ INSERT INTO `test`(
 now
 )VALUES ('2017-7-1');
 select * from test;
+
+CREATE TABLE `mytesttable` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `createtime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '测试时间戳';
+##----------------------------------------------------------------
 
 
 ALTER TABLE `user_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
