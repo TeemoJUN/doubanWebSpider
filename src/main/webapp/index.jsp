@@ -45,7 +45,7 @@
                     <i>&nbsp;</i>
                 </div>
                 <ul class="submenu">
-                    <li class="viewList">
+                    <li>
                         <span><a href="hy_list.html" target="main">查询</a></span>
                     </li>
                 </ul>

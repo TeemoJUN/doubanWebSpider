@@ -1,5 +1,8 @@
 package spider.read.douban.com.dao;
 
+import com.jayway.jsonpath.internal.function.numeric.Max;
+import common.model.param.LimitQuery;
+import common.model.vo.MaxAndMin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -8,7 +11,6 @@ import spider.read.douban.com.model.EbookInfo;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +60,18 @@ public class EbookInfoMapperTest {
         List<EbookInfo> list=ebookInfoMapper.selectListByAny(ebookInfo);
 
         System.out.println("-----------"+list.toString());
+    }
+    @Test
+    public void selectListByNum(){
+//        LimitQuery limitQuery=new LimitQuery();
+//        limitQuery.setEnd(100);
+//        limitQuery.setStart(10);
+//
+//        List<EbookInfo>list=ebookInfoMapper.selectListByNum(limitQuery);
+//        System.out.println(list);
+        MaxAndMin andMin=ebookInfoMapper.queryMinMax();
+        System.out.println(andMin);
+
     }
 
 }
