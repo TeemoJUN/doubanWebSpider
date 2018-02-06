@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.zailin.webspider.dao.SelectTopMapper">
-    <resultMap id="SelectResutlMap" type="cn.zailin.webspider.model.vo.BasicSelectView">
+<mapper namespace="cn.webspider.dao.SelectTopMapper">
+    <resultMap id="SelectResutlMap" type="cn.webspider.model.vo.BasicSelectView">
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
         <result column="author_name" jdbcType="VARCHAR" property="authorName" />
@@ -26,7 +26,7 @@
         rating, comments, current_price, description, popular_annotations, key_words, url,
         pubTime
     </sql>
-    <select id="selectTop" parameterType="cn.zailin.webspider.model.param.BasicSelectParam" resultMap="SelectResutlMap">
+    <select id="selectTop" parameterType="cn.webspider.model.param.BasicSelectParam" resultMap="SelectResutlMap">
         SELECT
             <include refid="Base_Column_List"></include>
         FROM eBook_info

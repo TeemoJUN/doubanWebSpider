@@ -47,6 +47,11 @@ public class Son extends Father {
 
     }
 
+    /**
+     * 测试json
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Map<String, Object> map = new HashMap<>();
 

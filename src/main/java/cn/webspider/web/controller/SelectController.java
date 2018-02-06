@@ -1,4 +1,4 @@
-package cn.zailin.webspider.web.controller;
+package cn.webspider.web.controller;
 
 /**
  * 书籍查询功能

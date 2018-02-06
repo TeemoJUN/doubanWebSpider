@@ -1,4 +1,4 @@
-package cn.zailin.webspider.model.vo;
+package cn.webspider.model.vo;
 
 import java.util.Date;
 

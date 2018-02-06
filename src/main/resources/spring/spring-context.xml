@@ -11,5 +11,5 @@
     <import resource="dao.xml"/>
 
     <context:component-scan
-            base-package="spider.read.douban.com,spider.read.douban.com.service.**.**,cn.zailin.webspider.**"/>
+            base-package="spider.read.douban.com,spider.read.douban.com.service.**.**,cn.webspider.**,common.service"/>
 </beans>

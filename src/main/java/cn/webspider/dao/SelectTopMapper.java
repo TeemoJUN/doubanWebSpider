@@ -1,8 +1,7 @@
-package cn.zailin.webspider.dao;
+package cn.webspider.dao;
 
-import cn.zailin.webspider.model.param.BasicSelectParam;
-import cn.zailin.webspider.model.vo.BasicSelectView;
-import org.apache.ibatis.annotations.Param;
+import cn.webspider.model.param.BasicSelectParam;
+import cn.webspider.model.vo.BasicSelectView;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

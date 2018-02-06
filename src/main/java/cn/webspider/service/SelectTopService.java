@@ -1,8 +1,9 @@
-package cn.zailin.webspider.service;
+package cn.webspider.service;
 
-import cn.zailin.webspider.dao.SelectTopMapper;
-import cn.zailin.webspider.model.param.BasicSelectParam;
-import cn.zailin.webspider.model.vo.BasicSelectView;
+import cn.webspider.dao.SelectTopMapper;
+import cn.webspider.model.param.BasicSelectParam;
+import cn.webspider.model.vo.BasicSelectView;
+import common.service.ToJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

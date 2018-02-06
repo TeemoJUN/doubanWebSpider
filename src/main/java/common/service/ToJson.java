@@ -1,7 +1,7 @@
-package cn.zailin.webspider.service;
+package common.service;
 
 
-import cn.zailin.webspider.model.vo.BasicSelectView;
+import cn.webspider.model.vo.BasicSelectView;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import spider.read.douban.com.service.SavingTask;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -24,6 +25,16 @@ public class ToJson {
             return mapper.writeValueAsString(list);
         }catch (IOException e){
             logger.warn("解析失败 {}",e,list);
+        }
+        return null;
+    }
+
+    public String buildJson(Map<String,Integer> map){
+        checkNotNull(map);
+        try {
+            return mapper.writeValueAsString(map);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }

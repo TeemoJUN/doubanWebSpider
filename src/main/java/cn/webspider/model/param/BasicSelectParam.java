@@ -1,4 +1,4 @@
-package cn.zailin.webspider.model.param;
+package cn.webspider.model.param;
 
 /**
  * 基本查询(根据字数，评分，评论人数，当前价格，查询top前几的书籍)

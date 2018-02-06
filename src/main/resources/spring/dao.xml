@@ -46,6 +46,6 @@
         <!--sqlSessionFactoryBeanName-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!--@TODO 目前只加载read的dao包-->
-        <property name="basePackage" value="cn.zailin.webspider.dao,spider.read.douban.com.dao"/>
+        <property name="basePackage" value="cn.webspider.dao,spider.read.douban.com.dao,common.dao"/>
     </bean>
 </beans>
