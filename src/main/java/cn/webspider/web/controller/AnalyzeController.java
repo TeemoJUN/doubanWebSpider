@@ -20,7 +20,7 @@ public class AnalyzeController {
     private CreateMemoryTable createMemoryTable;
     @RequestMapping(value = "/press",produces = "application/json;charset=utf-8")
     @ResponseBody
-    public void press(){
-        createMemoryTable.selectPressTemp();
+    public String press(){
+        return createMemoryTable.selectPressTemp();
     }
 }

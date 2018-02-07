@@ -8,7 +8,7 @@
     <context:property-placeholder location="classpath:jdbc.properties" ignore-resource-not-found="true"/>
 
     <!--数据源-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driverClassName}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>
@@ -35,7 +35,7 @@
 
         <property name="mapperLocations">
             <array>
-                <value>classpath:mybatis/mapper/EbookInfoMapper.xml</value>
+                <value>classpath:mybatis/mapper/*.xml</value>
                 <value>classpath:mybatis/mapper/generator/*.xml</value>
             </array>
         </property>

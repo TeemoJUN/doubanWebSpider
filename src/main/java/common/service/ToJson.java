@@ -19,7 +19,7 @@ public class ToJson {
     Logger logger = LoggerFactory.getLogger(SavingTask.class);
     ObjectMapper mapper = new ObjectMapper();
 
-    public String buildJson(List<BasicSelectView> list) {
+    public String buildJson(List<?> list) {
         checkNotNull(list);
         try{
             return mapper.writeValueAsString(list);

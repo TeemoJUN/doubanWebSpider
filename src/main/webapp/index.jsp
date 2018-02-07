@@ -91,16 +91,8 @@
             </li>
         </ul>
     </div>
-    <div id="main" class="line" style="width: 70px;height: 100%">
+    <div id="main" class="line" style="width: 85%;height: 100%">
         <div id="contain">
-            <%--<ul>--%>
-                <%--<li><a href="cn/zailin/ebook/basic?wordCount=true">书籍字数最多的书籍</a></li>--%>
-                <%--<li><a href="cn/zailin/ebook/basic?currentPrice=true">价格最贵的书籍 </a></li>--%>
-                <%--&lt;%&ndash;<li><a href="cn/zailin/ebook/basic?currentPrice=true">书籍标签最多的书籍</a></li>&ndash;%&gt;--%>
-                <%--<li><a href="cn/zailin/ebook/basic?rating=true">评分最高的书籍</a></li>--%>
-                <%--<li><a href="cn/zailin/ebook/basic?comments=true">评论最多的书籍</a></li>--%>
-                <%--&lt;%&ndash;<li><a href="cn/zailin/ebook/basic?currentPrice=true">翻译书籍最多的译者</a></li>&ndash;%&gt;--%>
-            <%--</ul>--%>
 
         </div>
     </div>

@@ -24,7 +24,7 @@ ol, ul {
 .head {
     width: 100%;
     height: 80px;
-    min-width: 1200px;
+    min-width: 1280px;
     margin: 0px auto;
     background: #3E4047;
     font-size: 40px;
@@ -32,6 +32,7 @@ ol, ul {
     text-align: center;
 
 }
+
 /*
 项目图标
 .head .logo {
@@ -49,8 +50,10 @@ ol, ul {
 /*左边导航*/
 .line {
     float: left;
-    width: 20%;
+    width: 15%;
+    min-width: 160px;
 }
+
 .sideNav {
     background: #F9F9F9;
     width: 100%;
@@ -155,21 +158,43 @@ ol, ul {
     margin-left: 35px;
 }
 
-#contain{
-    /*display: block;*/
-    width: 10000px;
+#contain {
+    width: 100%;
     height: 100%;
-    background-color: #000000;
-    color: #3D89CB;
-
 }
 
+table {
+    width: 100%;
+    min-width: 1100px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0px 0px 0px 1px;
+    white-space: nowrap;
+    border-collapse: collapse;
+    layout: fixed;
+    text-align: center;
+}
+
+table td, table th {
+    font-size: 12px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0px 1px 1px 0px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+table th {
+    font-size: 15px;
+}
 
 /*注脚*/
-.foot{
+.foot {
     clear: both;
     width: 100%;
     height: 40px;
+    min-width: 1280px;
     font-size: 20px;
     line-height: 40px;
     color: #656565;
@@ -180,10 +205,10 @@ ol, ul {
 
 /*右边内容*/
 /*.right_m {*/
-    /*min-width: 975px;*/
-    /*margin: 0px;*/
-    /*padding: 0px;*/
-    /*background: #E9E9E9;*/
+/*min-width: 975px;*/
+/*margin: 0px;*/
+/*padding: 0px;*/
+/*background: #E9E9E9;*/
 /*}*/
 
 /*分页导航*/
