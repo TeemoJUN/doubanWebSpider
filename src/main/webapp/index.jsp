@@ -6,9 +6,10 @@
     <title>豆瓣书籍分析平台</title>
     <link rel="stylesheet" type="text/css" href="view/css/common.css">
     <script type="text/javascript" src="view/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="view/js/echarts.min.js"></script>
     <script type="text/javascript" src="view/js/main.js" charset="UTF-8"></script>
 </head>
-<body>
+<body style="width: 100%;height: 100%">
     <!--头部-->
     <div class="head">
         <div class="logo">
@@ -56,7 +57,7 @@
                     <i>&nbsp;</i>
                 </div>
                 <ul class="submenu">
-                    <li>
+                    <li class="press">
                         <span><a href="lfpz.html" target="main">出版商及其出版的书籍数量对比</a></span>
                     </li>
                     <li>
@@ -91,11 +92,36 @@
             </li>
         </ul>
     </div>
-    <div id="main" class="line" style="width: 85%;height: 100%">
-        <div id="contain">
+
+    <div id="main" class="line" style="width: 85%;height: 1200px;">
+        <div id="contain" style="width: 100%;height: 1160px;">
 
         </div>
+        <div class="r_foot">
+            <div class="r_foot_m">
+                <span>
+                    <input name="" type="checkbox" value="">
+                    <em>全部选中</em>
+                </span>
+                <a href="" class="btn">删除</a>
+                <a href="" class="btn">刷新</a>
+
+                <!--分页-->
+                <div class="page">
+                    <a href="" class="prev"><img src="view/images/icon7.png" alt=""/></a>
+                    <a class="now">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <a href="">6</a>
+                    <a href="" class="next"><img src="view/images/icon8.png" alt=""/></a>
+                </div>
+                <!--分页-->
+            </div>
+        </div>
     </div>
+
     <footer class="foot">
         <div>&copy;Copyright 2018 CreateBy:万在林</div>
     </footer>

@@ -18,5 +18,7 @@
 
     <!-- Continue editing here -->
 
-
+<!--<plugins>-->
+    <!--<plugin interceptor=""></plugin>-->
+<!--</plugins>-->
 </configuration>

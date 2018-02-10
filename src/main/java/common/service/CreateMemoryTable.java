@@ -6,7 +6,7 @@ import common.dao.PressTempMapper;
 import common.model.param.LimitQuery;
 import common.model.param.PressTemp;
 import common.model.vo.MaxAndMin;
-import common.model.vo.PressView;
+import common.model.vo.DateView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spider.read.douban.com.dao.EbookInfoMapper;
@@ -92,10 +92,13 @@ public class CreateMemoryTable {
     }
 
     public String selectPressTemp() {
-        if (flag) {
+        List<DateView> list =pressMapper.queryAll();
+        if (list.size()==0) {
             createPressTemp();
+        }else{
+            return toJson.buildJson(list);
         }
-        List<PressView> list =pressMapper.queryAll();
+        list=pressMapper.queryAll();
 
         return toJson.buildJson(list);
     }

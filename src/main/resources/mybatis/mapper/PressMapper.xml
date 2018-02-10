@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="common.dao.PressMapper">
-    <resultMap id="Result" type="common.model.vo.PressView">
-        <result column="press" jdbcType="VARCHAR" property="press"/>
-        <result column="num" jdbcType="INTEGER" property="num"/>
+    <resultMap id="Result" type="common.model.vo.DateView">
+        <result column="press" jdbcType="VARCHAR" property="name"/>
+        <result column="num" jdbcType="INTEGER" property="value"/>
     </resultMap>
     <sql id="res">
-        press,num
+        press, num
     </sql>
     <select id="queryAll" resultMap="Result">
         SELECT
-            <include refid="res"></include>
-        FROM press_temp ORDER BY id;
+        <include refid="res"></include>
+        FROM press_temp ORDER BY num DESC;
     </select>
 </mapper>

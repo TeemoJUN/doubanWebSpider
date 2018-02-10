@@ -73,7 +73,7 @@
         INSERT INTO press_temp
         (`press`,`num`)
         values
-        <foreach collection="list" item="element" index="index"  open="(" separator="),(" close=")">
+        <foreach collection="list" item="element" index="index" open="(" separator="),(" close=")">
             #{element.press,jdbcType=VARCHAR},#{element.num,jdbcType=INTEGER}
         </foreach>
     </insert>
