@@ -58,25 +58,25 @@
                 </div>
                 <ul class="submenu">
                     <li class="press">
-                        <span><a href="lfpz.html" target="main">出版商及其出版的书籍数量对比</a></span>
+                        <span><a href="cn/zailin/ebook/press">出版商及其出版的书籍数量对比</a></span>
+                    </li>
+                    <li class="press">
+                        <span><a href="cn/zailin/ebook/provider">供应商及其提供的书籍数量</a></span>
                     </li>
                     <li>
-                        <span><a href="fwqkz.html" target="main">供应商及其提供的书籍数量</a></span>
+                        <span><a>书籍类别及书籍数量对比</a></span>
                     </li>
                     <li>
-                        <span><a href="fwqkz.html" target="main">书籍类别及书籍数量对比</a></span>
+                        <span><a>作者分布</a></span>
                     </li>
                     <li>
-                        <span><a href="fwqkz.html" target="main">作者分布</a></span>
+                        <span><a>时间分布</a></span>
                     </li>
                     <li>
-                        <span><a href="fwqkz.html" target="main">时间分布</a></span>
+                        <span><a>评分的分布</a></span>
                     </li>
                     <li>
-                        <span><a href="fwqkz.html" target="main">评分的分布</a></span>
-                    </li>
-                    <li>
-                        <span><a href="fwqkz.html" target="main">标签种类及其个数分布</a></span>
+                        <span><a>标签种类及其个数分布</a></span>
                     </li>
                 </ul>
             </li>

@@ -325,7 +325,7 @@
         select
         <include refid="Base_Column_List"/>
         from eBook_info ORDER BY `id`
-        BETWEEN #{start} And #{end}
+        LIMIT #{start} , #{end}
     </select>
 
     <select id="queryMinMax" resultMap="MaxAndMin">

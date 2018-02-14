@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.dao.ProviderTempMapper">
+    <resultMap id="BaseResultMap" type="common.model.param.ProviderTemp">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="provider" jdbcType="VARCHAR" property="provider" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, provider, num
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from provider_temp
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from provider_temp
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="common.model.param.ProviderTemp">
+        insert into provider_temp (id, provider, num
+        )
+        values (#{id,jdbcType=INTEGER}, #{provider,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="common.model.param.ProviderTemp">
+        insert into provider_temp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="provider != null">
+                provider,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="provider != null">
+                #{provider,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="common.model.param.ProviderTemp">
+        update provider_temp
+        <set>
+            <if test="provider != null">
+                provider = #{provider,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="common.model.param.ProviderTemp">
+        update provider_temp
+        set provider = #{provider,jdbcType=VARCHAR},
+        num = #{num,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO provider_temp
+        (`provider`,`num`)
+        values
+        <foreach collection="list" item="element" index="index" open="(" separator="),(" close=")">
+            #{element.provider,jdbcType=VARCHAR},#{element.num,jdbcType=INTEGER}
+        </foreach>
+    </insert>
+</mapper>

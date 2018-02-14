@@ -7,6 +7,7 @@ $(function () {
         $(this).toggleClass('view');
     });
     $(".basicView").click(function () {
+        $(".r_foot").show();
         echarts.dispose(document.getElementById("contain"));
         $.ajax({
             url: "cn/zailin/ebook/basic?rating=true&top=50",
@@ -22,7 +23,7 @@ $(function () {
         var table = document.createElement("table");
         var trOne = document.createElement("tr");
         for (var arr in data[0]) {
-            if (arr == "description" || arr == "popularAnnotations" || arr == "subtitle") {
+            if (arr === "description" || arr === "popularAnnotations" || arr === "subtitle") {
                 continue;
             }
             var th = document.createElement("th");
@@ -34,21 +35,21 @@ $(function () {
         for (var i = 0; i < length; i++) {
             var tr = document.createElement("tr");
             for (var arr in data[i]) {
-                if (arr == "description" || arr == "popularAnnotations" || arr == "subtitle") {
+                if (arr === "description" || arr === "popularAnnotations" || arr === "subtitle") {
                     continue;
                 }
                 var value = data[i][arr] === null ? "无" : data[i][arr];
 
                 var th = document.createElement("td");
                 var node;
-                if (arr == "url") {
+                if (arr === "url") {
                     var a = document.createElement("a");
                     a.setAttribute("href", value);
                     node = document.createTextNode("URL");
                     a.appendChild(node);
                     th.appendChild(a);
-                } else if (arr == "pubtime") {
-                    var date = value == "无" ? "无" : new Date(value).getFullYear()+"-"+(new Date(value).getMonth()+1);
+                } else if (arr === "pubtime") {
+                    var date = value === "无" ? "无" : new Date(value).getFullYear()+"-"+(new Date(value).getMonth()+1);
                     node = document.createTextNode(date);
                     th.appendChild(node);
                 }
@@ -61,7 +62,6 @@ $(function () {
             table.appendChild(tr);
         }
         fragment.appendChild(table);
-        console.log(document.getElementById("contain"));
         document.getElementById("contain").appendChild(fragment);
     }
 
@@ -103,10 +103,13 @@ $(function () {
                 return "错误";
         }
     }
-    $(".press").click(function () {
+    $(".press").click(function (event) {
+        $(".r_foot").hide();
+        var url=event.target.childNodes[0].getAttribute("href");
+        echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
         $.ajax({
-            url: "cn/zailin/ebook/press",
+            url: url,
             success: function (data) {
                 var resultBar=barShow(data);
                 myChart.setOption({
@@ -129,7 +132,7 @@ $(function () {
                     yAxis: [
                         {
                             type : 'value',
-                            name : '书籍数量',
+                            name : '书籍数量'
                         }
                     ],
                     dataZoom: [
@@ -157,7 +160,7 @@ $(function () {
         };
         for(var i=0;i<data.length;i++){
             for(var each in data[i]){
-                if(each=="name"){
+                if(each==="name"){
                     bar.x.push(data[i][each]);
                 }
                 else {
