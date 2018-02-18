@@ -1,10 +1,10 @@
 package cn.webspider.web.controller;
 
 
-import common.service.PressService;
-import common.service.ProviderService;
+import common.service.AnalyzeTempDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,22 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2018/01/14
  */
 @Controller
-@RequestMapping("/cn/zailin/ebook")
+@RequestMapping("/cn/zailin/ebook/analyze")
 public class AnalyzeController {
     @Autowired
-    private PressService pressService;
-    @Autowired
-    private ProviderService providerService;
+    AnalyzeTempDelegate analyzeTempDelegate;
 
-    @RequestMapping(value = "/press",produces = "application/json;charset=utf-8")
+    @RequestMapping(path = "/{item}",produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String press(){
-        return pressService.selectTemp();
-    }
-
-    @RequestMapping(value = "/provider",produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public String provider(){
-        return providerService.selectTemp();
+    public String press(@PathVariable String item){
+        return analyzeTempDelegate.selectTemp(item);
     }
 }

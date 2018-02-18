@@ -17,6 +17,10 @@ $(function () {
         })
     });
 
+    /**
+     * 显示书籍信息
+     * @param data
+     */
     function viewBook(data) {
         var length = data.length;
         var fragment = document.createDocumentFragment();
@@ -103,14 +107,19 @@ $(function () {
                 return "错误";
         }
     }
-    $(".press").click(function (event) {
+    $(".analyze").click(function (event) {
         $(".r_foot").hide();
         var url=event.target.childNodes[0].getAttribute("href");
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
+        myChart.on("click",function (event) {
+            //console.log(event);
+            barEvent(event);
+        });
         $.ajax({
             url: url,
             success: function (data) {
+                console.log(data);
                 var resultBar=barShow(data);
                 myChart.setOption({
                     title: {
@@ -118,7 +127,7 @@ $(function () {
                     },
                     grid: {
                         top: '10%',
-                        left: '1%',
+                        left: '4%',
                         right: '10%',
                         containLabel: true
                     },
@@ -127,7 +136,11 @@ $(function () {
                         data:['数量']
                     },
                     xAxis: {
-                        data: resultBar.x
+                        data: resultBar.x,
+                        axisLabel:{
+                            interval:0,
+                            rotate:40
+                        }
                     },
                     yAxis: [
                         {
@@ -140,7 +153,7 @@ $(function () {
                             type: 'slider',
                             show: true,
                             start: 0,
-                            end: 50,
+                            end: 15,
                             handleSize: 8
                         }
                     ],
@@ -153,6 +166,35 @@ $(function () {
             }
         })
     });
+    
+    $(".pie").click(function (e) {
+        $(".r_foot").hide();
+        var url=event.target.childNodes[0].getAttribute("href");
+        echarts.dispose(document.getElementById("contain"));
+        var myChart = echarts.init(document.getElementById("contain"));
+        $.ajax({
+            url:url,
+            success:function (data) {
+                myChart.setOption({
+                    tooltip: {},
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius: '70%',
+                            data:data
+                        }
+                    ],
+                })
+            }
+        })
+    });
+
+    /**
+     * 把接收的数据转化为可以显示的数据
+     * @param data
+     * @returns {{x: Array, y: Array}}
+     */
     function barShow(data) {
         var bar={
             x:[],
@@ -169,6 +211,11 @@ $(function () {
             }
         }
         return bar;
+    }
+
+    function barEvent(param) {
+        console.log(param.name);
+        //@TODO 根据参数再次请求服务起返回参数，返回所有列表
     }
 
 });

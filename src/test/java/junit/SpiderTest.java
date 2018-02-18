@@ -159,7 +159,16 @@ public class SpiderTest {
         System.out.println(date);
     }
 
-
+    @Test
+    public void testDouble(){
+        double a=1.2;
+        int b=1;
+        if(a<b){
+            System.out.println("AA");
+        }else {
+            System.out.println("BBB");
+        }
+    }
 
 
 }

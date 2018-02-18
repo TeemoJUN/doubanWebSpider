@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.dao.KeyMapper">
+    <resultMap id="Result" type="common.model.vo.DateView">
+        <result column="key_words" jdbcType="VARCHAR" property="name"/>
+        <result column="num" jdbcType="INTEGER" property="value"/>
+    </resultMap>
+    <sql id="res">
+        key_words, num
+    </sql>
+    <select id="queryAll" resultMap="Result">
+        SELECT
+        <include refid="res"></include>
+        FROM key_temp where num>50 ORDER BY num DESC;
+    </select>
+</mapper>

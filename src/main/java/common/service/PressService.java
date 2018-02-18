@@ -42,7 +42,7 @@ public class PressService extends CreateTemp {
         for (int i = 0; i < len; i += SELECT_LENGTH) {
             limitQuery.setStart(i);
             List<EbookInfo> list = ebookInfoMapper.selectListByNum(limitQuery);
-            list.stream().parallel().map(pressFunction).filter(Objects::nonNull).forEach(consumer);
+            list.stream().map(pressFunction).filter(Objects::nonNull).forEach(consumer);
         }
 
     }

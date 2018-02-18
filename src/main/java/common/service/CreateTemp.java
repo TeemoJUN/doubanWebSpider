@@ -1,24 +1,11 @@
 package common.service;
 
-import com.google.common.collect.Maps;
-import common.dao.PressMapper;
-import common.dao.PressTempMapper;
-import common.model.param.LimitQuery;
-import common.model.param.PressTemp;
 import common.model.vo.MaxAndMin;
-import common.model.vo.DateView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import spider.read.douban.com.dao.EbookInfoMapper;
-import spider.read.douban.com.model.EbookInfo;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * 临时表的创建
@@ -26,7 +13,7 @@ import java.util.stream.Collectors;
  * @author wanzailin
  * @date 2018/02/02
  */
-@Service
+
 public abstract class CreateTemp {
 
     protected final static int SELECT_LENGTH = 2000;

@@ -37,20 +37,20 @@ public class ProviderService extends CreateTemp {
     };
 
     @Override
-    public void extract(int len) {
+    void extract(int len) {
         map = Maps.newConcurrentMap();
         LimitQuery limitQuery = new LimitQuery();
         limitQuery.setEnd(SELECT_LENGTH);
         for (int i = 0; i < len; i += SELECT_LENGTH) {
             limitQuery.setStart(i);
             List<EbookInfo> list = ebookInfoMapper.selectListByNum(limitQuery);
-            list.stream().parallel().map(providerFunction).filter(Objects::nonNull).forEach(consumer);
+            list.stream().map(providerFunction).filter(Objects::nonNull).forEach(consumer);
         }
     }
 
 
     @Override
-    public void save() {
+    void save() {
         List<ProviderTemp> providerTemps = map.entrySet().stream().map(stringIntegerEntry -> {
             ProviderTemp providerTemp = new ProviderTemp();
             providerTemp.setProvider(stringIntegerEntry.getKey());

@@ -1,6 +1,7 @@
 package common.model.vo;
 
 /**
+ * 查询数据库中最大id和最小id，以便进行数据处理
  * @author wanzailin
  * @date 2017/02/5
  */
