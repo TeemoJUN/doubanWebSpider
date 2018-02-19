@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -23,33 +23,22 @@ public class PressService extends CreateTemp {
     private PressTempMapper pressTempMapper;
     @Resource
     private PressMapper pressMapper;
-    private Map<String, Integer> map;
 
-    private Function<EbookInfo, String> pressFunction = EbookInfo::getPress;
-    private Consumer<String> consumer = (press) -> {
-        int count = 1;
-        if (map.containsKey(press)) {
-            count = map.get(press) + 1;
-        }
-        map.put(press, count);
-    };
-
-    @Override
-    public void extract(int len) {
-        map = Maps.newConcurrentMap();
-        LimitQuery limitQuery = new LimitQuery();
-        limitQuery.setEnd(SELECT_LENGTH);
-        for (int i = 0; i < len; i += SELECT_LENGTH) {
-            limitQuery.setStart(i);
-            List<EbookInfo> list = ebookInfoMapper.selectListByNum(limitQuery);
-            list.stream().map(pressFunction).filter(Objects::nonNull).forEach(consumer);
-        }
-
+    public PressService(){
+        super(EbookInfo::getPress,(map, press) -> {
+            int count = 1;
+            if (map.containsKey(press)) {
+                count = map.get(press) + 1;
+            }
+            map.put(press, count);
+        });
     }
 
 
+
+
     @Override
-    public void save() {
+    public void save(Map<String,Integer> map) {
         List<PressTemp> pressTemps = map.entrySet().stream().map(stringIntegerEntry -> {
             PressTemp pressTemp = new PressTemp();
             pressTemp.setPress(stringIntegerEntry.getKey());

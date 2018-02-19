@@ -1,27 +1,54 @@
-/*左边显示*/
+
 $(function () {
-    $(".submenu li").click(function (event) {
+    /*左边显示*/
+     $(".submenu li").click(function (event) {
         event.stopPropagation();
     });
     $(".sideNav").children("li").click(function () {
         $(this).toggleClass('view');
     });
+    /*查询基本信息*/
     $(".basicView").click(function () {
         $(".r_foot").show();
-        echarts.dispose(document.getElementById("contain"));
         $.ajax({
             url: "cn/zailin/ebook/basic?rating=true&top=50",
             success: function (data) {
-                viewBook(data);
+                viewDetailBook(data);
             }
         })
     });
+    /*饼图*/
+    $(".pie").click(function (e) {
+        $(".r_foot").hide();
+        var url=event.target.childNodes[0].getAttribute("href");
+        $.ajax({
+            url:url,
+            success:function (data) {
+                pie(data);
+            }
+        });
+        return false;
+    });
+    /*柱状图*/
+    $(".analyze").click(function (event) {
+        $(".r_foot").hide();
+        var url=event.target.childNodes[0].getAttribute("href");
+        $.ajax({
+            url: url,
+            success: function (data) {
+                bar(data);
+            }
+        });
+        return false;
+    });
 
     /**
-     * 显示书籍信息
+     * 显示书籍详情信息
      * @param data
      */
-    function viewBook(data) {
+    function viewDetailBook(data) {
+        echarts.dispose(document.getElementById("contain"));
+        $("#contain").empty();
         var length = data.length;
         var fragment = document.createDocumentFragment();
         var table = document.createElement("table");
@@ -69,6 +96,11 @@ $(function () {
         document.getElementById("contain").appendChild(fragment);
     }
 
+    /**
+     * 详情介绍栏
+     * @param arr
+     * @returns {string}
+     */
     function createTh(arr) {
         switch (arr) {
             case "title":
@@ -107,95 +139,102 @@ $(function () {
                 return "错误";
         }
     }
-    $(".analyze").click(function (event) {
-        $(".r_foot").hide();
-        var url=event.target.childNodes[0].getAttribute("href");
+
+
+    /**
+     * 柱状图的显示
+     * @param data
+     * @constructor
+     */
+    function bar(data) {
+        var resultBar=barFormatting(data);
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
         myChart.on("click",function (event) {
-            //console.log(event);
             barEvent(event);
         });
-        $.ajax({
-            url: url,
-            success: function (data) {
-                console.log(data);
-                var resultBar=barShow(data);
-                myChart.setOption({
-                    title: {
-                        text: '出版商及其出版的书籍数量对比'
-                    },
-                    grid: {
-                        top: '10%',
-                        left: '4%',
-                        right: '10%',
-                        containLabel: true
-                    },
-                    tooltip: {},
-                    legend: {
-                        data:['数量']
-                    },
-                    xAxis: {
-                        data: resultBar.x,
-                        axisLabel:{
-                            interval:0,
-                            rotate:40
-                        }
-                    },
-                    yAxis: [
-                        {
-                            type : 'value',
-                            name : '书籍数量'
-                        }
-                    ],
-                    dataZoom: [
-                        {
-                            type: 'slider',
-                            show: true,
-                            start: 0,
-                            end: 15,
-                            handleSize: 8
-                        }
-                    ],
-                    series: [{
-                        name: '数量',
-                        type: 'bar',
-                        data: resultBar.y
-                    }]
-                });
-            }
-        })
-    });
-    
-    $(".pie").click(function (e) {
-        $(".r_foot").hide();
-        var url=event.target.childNodes[0].getAttribute("href");
+        myChart.setOption({
+            title: {
+                text: '出版商及其出版的书籍数量对比'
+            },
+            grid: {
+                top: '10%',
+                left: '4%',
+                right: '10%',
+                containLabel: true
+            },
+            tooltip: {},
+            legend: {
+                data:['数量']
+            },
+            xAxis: {
+                data: resultBar.x,
+                axisLabel:{
+                    interval:0,
+                    rotate:40
+                }
+            },
+            yAxis: [
+                {
+                    type : 'value',
+                    name : '书籍数量'
+                }
+            ],
+            dataZoom: [
+                {
+                    type: 'slider',
+                    show: true,
+                    start: 0,
+                    end: 15,
+                    handleSize: 8
+                }
+            ],
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: resultBar.y
+            }]
+        });
+    }
+
+    /**
+     * 饼图echarts图
+     * @param data
+     */
+    function pie(data) {
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
-        $.ajax({
-            url:url,
-            success:function (data) {
-                myChart.setOption({
-                    tooltip: {},
-                    series : [
-                        {
-                            name: '访问来源',
-                            type: 'pie',
-                            radius: '70%',
-                            data:data
+        myChart.setOption({
+            tooltip: {},
+            series : [
+                {
+                    name: '评分分布图',
+                    type: 'pie',
+                    radius: '70%',
+                    data:data,
+                    itemStyle:{
+                        normal:{
+                            label:{
+                                show: true,
+                                formatter: '{b} : {c} ({d}%)',
+                                textStyle:{
+                                    fontSize: 18
+                                }
+                            }
+                            //labelLine :{show:true}
                         }
-                    ],
-                })
-            }
-        })
-    });
+                    }
+                }
+            ]
 
+        })
+    }
     /**
      * 把接收的数据转化为可以显示的数据
      * @param data
      * @returns {{x: Array, y: Array}}
      */
-    function barShow(data) {
+    function barFormatting(data) {
         var bar={
             x:[],
             y:[]
@@ -213,6 +252,10 @@ $(function () {
         return bar;
     }
 
+    /**
+     * 柱状图的item事件
+     * @param param
+     */
     function barEvent(param) {
         console.log(param.name);
         //@TODO 根据参数再次请求服务起返回参数，返回所有列表

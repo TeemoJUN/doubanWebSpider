@@ -24,33 +24,20 @@ public class ProviderService extends CreateTemp {
     private ProviderTempMapper providerTempMapper;
     @Resource
     private ProviderMapper providerMapper;
-    private Function<EbookInfo, String> providerFunction = EbookInfo::getProvider;
 
-    private Map<String, Integer> map;
-
-    private Consumer<String> consumer = (provider) -> {
-        int count = 1;
-        if (map.containsKey(provider)) {
-            count = map.get(provider) + 1;
-        }
-        map.put(provider, count);
-    };
-
-    @Override
-    void extract(int len) {
-        map = Maps.newConcurrentMap();
-        LimitQuery limitQuery = new LimitQuery();
-        limitQuery.setEnd(SELECT_LENGTH);
-        for (int i = 0; i < len; i += SELECT_LENGTH) {
-            limitQuery.setStart(i);
-            List<EbookInfo> list = ebookInfoMapper.selectListByNum(limitQuery);
-            list.stream().map(providerFunction).filter(Objects::nonNull).forEach(consumer);
-        }
+    public ProviderService(){
+        super(EbookInfo::getProvider,(map,provider) -> {
+            int count = 1;
+            if (map.containsKey(provider)) {
+                count = map.get(provider) + 1;
+            }
+            map.put(provider, count);
+        });
     }
 
 
     @Override
-    void save() {
+    void save(Map<String,Integer> map) {
         List<ProviderTemp> providerTemps = map.entrySet().stream().map(stringIntegerEntry -> {
             ProviderTemp providerTemp = new ProviderTemp();
             providerTemp.setProvider(stringIntegerEntry.getKey());

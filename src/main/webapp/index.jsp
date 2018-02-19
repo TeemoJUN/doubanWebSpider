@@ -63,8 +63,8 @@
                     <li class="analyze">
                         <span><a href="cn/zailin/ebook/analyze/Provider">供应商及其提供的书籍数量</a></span>
                     </li>
-                    <li>
-                        <span><a>书籍类别及书籍数量对比</a></span>
+                    <li class="analyze">
+                        <span><a href="cn/zailin/ebook/analyze/Label">书籍类别及书籍数量对比</a></span>
                     </li>
                     <li>
                         <span><a>作者分布</a></span>
@@ -76,7 +76,7 @@
                         <span><a href="cn/zailin/ebook/analyze/Rating">评分的分布</a></span>
                     </li>
                     <li class="analyze">
-                        <span><a href="cn/zailin/ebook/analyze/KeyWord">标签种类及其个数分布</a></span>
+                        <span><a href="cn/zailin/ebook/analyze/Key">标签种类及其个数分布</a></span>
                     </li>
                 </ul>
             </li>

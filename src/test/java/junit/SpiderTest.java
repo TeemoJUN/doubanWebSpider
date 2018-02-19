@@ -125,6 +125,7 @@ public class SpiderTest {
         Jedis jedis = RedisUtil.getJedis();
         //j.set("name","wanzailin");
         //System.out.println(jedis.llen("eBook"));
+        assert jedis != null;
         System.out.println(jedis.lrange("eBook", 0, -1));
     }
 
@@ -161,7 +162,7 @@ public class SpiderTest {
 
     @Test
     public void testDouble(){
-        double a=1.2;
+        double a=1.0;
         int b=1;
         if(a<b){
             System.out.println("AA");

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/cn/zailin/ebook/analyze")
 public class AnalyzeController {
     @Autowired
-    AnalyzeTempDelegate analyzeTempDelegate;
+    private AnalyzeTempDelegate analyzeTempDelegate;
 
     @RequestMapping(path = "/{item}",produces = "application/json;charset=utf-8")
     @ResponseBody
