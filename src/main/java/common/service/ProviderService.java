@@ -45,7 +45,6 @@ public class ProviderService extends CreateTemp {
             return providerTemp;
         }).collect(Collectors.toList());
         providerTempMapper.insertList(providerTemps);
-        map = null;
     }
 
     @Override

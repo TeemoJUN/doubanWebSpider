@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 出版商显示使用
+ *
  * @author wanzailin
  * @date 2018/01/23
  */

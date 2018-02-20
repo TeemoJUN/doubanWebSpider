@@ -1,4 +1,3 @@
-
 $(function () {
     /*左边显示*/
      $(".submenu li").click(function (event) {
@@ -210,7 +209,7 @@ $(function () {
                 {
                     name: '评分分布图',
                     type: 'pie',
-                    radius: '70%',
+                    radius: '90%',
                     data:data,
                     itemStyle:{
                         normal:{

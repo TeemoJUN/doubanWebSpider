@@ -66,11 +66,11 @@
                     <li class="analyze">
                         <span><a href="cn/zailin/ebook/analyze/Label">书籍类别及书籍数量对比</a></span>
                     </li>
-                    <li>
-                        <span><a>作者分布</a></span>
-                    </li>
-                    <li>
-                        <span><a>时间分布</a></span>
+                    <%--<li>--%>
+                        <%--<span><a>作者分布</a></span>--%>
+                    <%--</li>--%>
+                    <li class="analyze">
+                        <span><a href="cn/zailin/ebook/analyze/Pubtime">时间分布</a></span>
                     </li>
                     <li class="pie">
                         <span><a href="cn/zailin/ebook/analyze/Rating">评分的分布</a></span>

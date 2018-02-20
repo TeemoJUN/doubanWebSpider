@@ -73,7 +73,6 @@ public abstract class CreateTemp {
         Map<String, Integer> map = Maps.newConcurrentMap();
         LimitQuery limitQuery = new LimitQuery();
         limitQuery.setEnd(SELECT_LENGTH);
-
         for (int i = 0; i < len; i += SELECT_LENGTH) {
             limitQuery.setStart(i);
             List<EbookInfo> list = ebookInfoMapper.selectListByNum(limitQuery);

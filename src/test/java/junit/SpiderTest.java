@@ -110,6 +110,7 @@ public class SpiderTest {
     @Test
     public void test() {
         Jedis jedis = RedisUtil.getJedis();
+        assert jedis != null;
         jedis.lpush("eBook", "wan");
         System.out.println(jedis.lpop("eBook"));
         for (int i = 0; i < 5; i++) {
@@ -132,6 +133,7 @@ public class SpiderTest {
     @Test
     public void delJedis() {
         Jedis jedis = RedisUtil.getJedis();
+        assert jedis != null;
         jedis.del("eBook");
     }
 
