@@ -1,7 +1,7 @@
 package common.service;
 
+import com.google.common.collect.Maps;
 import common.dao.PubtimeMapper;
-import common.dao.PubtimeTempMapper;
 import common.model.param.PubtimeTemp;
 import common.model.vo.DateView;
 import org.springframework.stereotype.Service;
@@ -16,23 +16,12 @@ public class PubtimeService extends CreateTemp {
 
     @Resource
     private PubtimeMapper pubtimeMapper;
-    @Resource
-    private PubtimeTempMapper pubtimeTempMapper;
 
     public PubtimeService() {
         super(ebookInfo -> {
             LocalDate localDate = ebookInfo.getPubtime();
             if(localDate!=null){
-                StringBuilder sb=new StringBuilder();
-                sb.append(localDate.getYear());
-                sb.append("-");
-                if(localDate.getMonthValue()<10){
-                    sb.append("0");
-                    sb.append(localDate.getMonthValue());
-                }else{
-                    sb.append(localDate.getMonthValue());
-                }
-                return sb.toString();
+                return String.valueOf(localDate.getYear());
             }
             return null;
         }, (map, localDate) -> {
@@ -52,18 +41,21 @@ public class PubtimeService extends CreateTemp {
             pubtimeTemp.setNum(s.getValue());
             return pubtimeTemp;
         }).collect(Collectors.toList());
-        pubtimeTempMapper.insertList(list);
+        pubtimeMapper.insertList(list);
     }
 
     @Override
     String selectTemp() {
+        Map<String,Object> map= Maps.newHashMap();
+        map.put("dataName","出版时间对比图");
         List<DateView> list = pubtimeMapper.queryAll();
+        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
         } else {
-            return toJson.buildJson(list);
+            return toJson.buildJson(map);
         }
         list = pubtimeMapper.queryAll();
-        return toJson.buildJson(list);
+        return toJson.buildJson(map);
     }
 }

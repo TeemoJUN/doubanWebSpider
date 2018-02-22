@@ -29,11 +29,12 @@ public class ToJson {
         return null;
     }
 
-    public String buildJson(Map<String,Integer> map){
+    public String buildJson(Map<String,Object> map){
         checkNotNull(map);
         try {
             return mapper.writeValueAsString(map);
         } catch (IOException e) {
+            logger.warn("解析失败 {}",e,map);
             e.printStackTrace();
         }
         return null;

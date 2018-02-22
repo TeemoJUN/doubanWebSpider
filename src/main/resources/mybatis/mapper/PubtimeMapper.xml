@@ -13,4 +13,12 @@
         <include refid="res"></include>
         FROM pubTime_temp ORDER BY pubTime;
     </select>
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO pubTime_temp
+        (`pubTime`,`num`)
+        values
+        <foreach collection="list" item="element" index="index" open="(" separator="),(" close=")">
+            #{element.pubtime,jdbcType=VARCHAR},#{element.num,jdbcType=INTEGER}
+        </foreach>
+    </insert>
 </mapper>

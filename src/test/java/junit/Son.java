@@ -63,9 +63,11 @@ public class Son extends Father {
         json1.setA(2);
         json1.setB(3);
         List<Json> list = new ArrayList();
+        map.put("BB", list);
         list.add(json1);
         list.add(json2);
-        map.put("BB", list);
+        //map.put("BB", list);
+        //map.put("BB", list);
 
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writeValueAsString(map));

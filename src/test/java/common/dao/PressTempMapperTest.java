@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration("classpath:spring/dao.xml")
 public class PressTempMapperTest {
     @Resource
-    private PressTempMapper pressTempMapper;
+    private PressMapper pressTempMapper;
     @Test
     public void deleteByPrimaryKey() {
     }

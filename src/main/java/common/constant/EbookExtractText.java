@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class EbookExtractText {
 
-    static Logger logger = LoggerFactory.getLogger(EbookExtractText.class);
+    private static Logger logger = LoggerFactory.getLogger(EbookExtractText.class);
 
     /**
      * 抽取纯净的url

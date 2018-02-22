@@ -2,7 +2,6 @@ package common.service;
 
 import com.google.common.collect.Maps;
 import common.dao.RatingMapper;
-import common.dao.RatingTempMapper;
 import common.model.param.LimitQuery;
 import common.model.param.RatingTemp;
 import common.model.vo.DateView;
@@ -14,15 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 @Service
 public class RatingService extends CreateTemp {
     @Resource
     private RatingMapper ratingMapper;
-    @Resource
-    private RatingTempMapper ratingTempMapper;
 
     private Function<EbookInfo, Double> function = EbookInfo::getRating;
 
@@ -81,20 +77,22 @@ public class RatingService extends CreateTemp {
             ratingTemp.setNum(stringIntegerEntry.getValue());
             return ratingTemp;
         }).collect(Collectors.toList());
-        ratingTempMapper.insertList(list);
+        ratingMapper.insertList(list);
 
     }
 
     @Override
     public String selectTemp() {
+        Map<String,Object> map=Maps.newHashMap();
+        map.put("dataName","评分分布");
         List<DateView> list = ratingMapper.queryAll();
+        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
         } else {
-            return toJson.buildJson(list);
+            return toJson.buildJson(map);
         }
         list = ratingMapper.queryAll();
-
-        return toJson.buildJson(list);
+        return toJson.buildJson(map);
     }
 }

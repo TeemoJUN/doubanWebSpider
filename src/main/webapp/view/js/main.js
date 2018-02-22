@@ -23,6 +23,7 @@ $(function () {
         $.ajax({
             url:url,
             success:function (data) {
+                console.log(data);
                 pie(data);
             }
         });
@@ -146,15 +147,20 @@ $(function () {
      * @constructor
      */
     function bar(data) {
-        var resultBar=barFormatting(data);
+        var resultBar=barFormatting(data.data);
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
         myChart.on("click",function (event) {
             barEvent(event);
         });
+
         myChart.setOption({
             title: {
-                text: '出版商及其出版的书籍数量对比'
+                text: data.dataName,
+                show:true,
+                textStyle:{
+                    fontSize:25
+                }
             },
             grid: {
                 top: '10%',
@@ -163,9 +169,6 @@ $(function () {
                 containLabel: true
             },
             tooltip: {},
-            legend: {
-                data:['数量']
-            },
             xAxis: {
                 data: resultBar.x,
                 axisLabel:{
@@ -190,10 +193,25 @@ $(function () {
             ],
             series: [{
                 name: '数量',
-                type: 'bar',
+                type: 'line',
                 data: resultBar.y
-            }]
+            },
+                {
+                    name: '数量',
+                    type: 'bar',
+                    data: resultBar.y
+                }
+            ]
         });
+        if(data.data.length<50){
+            myChart.setOption({
+                dataZoom:[{
+                    show:false,
+                    start:0,
+                    end:100
+                }]
+            })
+        }
     }
 
     /**
@@ -204,13 +222,22 @@ $(function () {
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
         myChart.setOption({
+            title:{
+                text:data.dataName,
+                show:true,
+                textStyle:{
+                    color:'Orange',
+                    fontSize:40
+                },
+                left:'center'
+            },
             tooltip: {},
             series : [
                 {
                     name: '评分分布图',
                     type: 'pie',
-                    radius: '90%',
-                    data:data,
+                    radius: '80%',
+                    data:data.data,
                     itemStyle:{
                         normal:{
                             label:{

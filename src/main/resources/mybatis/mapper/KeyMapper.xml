@@ -13,4 +13,12 @@
         <include refid="res"></include>
         FROM key_temp where num>50 ORDER BY num DESC;
     </select>
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO key_temp
+        (`key_words`,`num`)
+        values
+        <foreach collection="list" item="element" index="index" open="(" separator="),(" close=")">
+            #{element.keyWords,jdbcType=VARCHAR},#{element.num,jdbcType=INTEGER}
+        </foreach>
+    </insert>
 </mapper>

@@ -13,4 +13,12 @@
         <include refid="res"></include>
         FROM label_temp ORDER BY num DESC;
     </select>
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO label_temp
+        (`label`,`num`)
+        values
+        <foreach collection="list" item="element" index="index" open="(" separator="),(" close=")">
+            #{element.label,jdbcType=VARCHAR},#{element.num,jdbcType=INTEGER}
+        </foreach>
+    </insert>
 </mapper>

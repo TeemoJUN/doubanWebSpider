@@ -1,5 +1,6 @@
 package common.dao;
 
+import common.model.param.ProviderTemp;
 import common.model.vo.DateView;
 
 import java.util.List;
@@ -11,4 +12,5 @@ import java.util.List;
  */
 public interface ProviderMapper {
     List<DateView> queryAll();
+    int insertList(List<ProviderTemp> pressTemps);
 }

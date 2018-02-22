@@ -99,12 +99,12 @@
         </div>
         <div class="r_foot">
             <div class="r_foot_m">
-                <span>
-                    <input name="" type="checkbox" value="">
-                    <em>全部选中</em>
-                </span>
-                <a href="" class="btn">删除</a>
-                <a href="" class="btn">刷新</a>
+                <%--<span>--%>
+                    <%--<input name="" type="checkbox" value="">--%>
+                    <%--<em>全部选中</em>--%>
+                <%--</span>--%>
+                <%--<a href="" class="btn">删除</a>--%>
+                <%--<a href="" class="btn">刷新</a>--%>
 
                 <!--分页-->
                 <div class="page">

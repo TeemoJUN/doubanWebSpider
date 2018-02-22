@@ -2,8 +2,6 @@ package common.service;
 
 import com.google.common.collect.Maps;
 import common.dao.ProviderMapper;
-import common.dao.ProviderTempMapper;
-import common.model.param.LimitQuery;
 import common.model.param.ProviderTemp;
 import common.model.vo.DateView;
 import org.springframework.stereotype.Service;
@@ -12,16 +10,10 @@ import spider.read.douban.com.model.EbookInfo;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public class ProviderService extends CreateTemp {
-
-    @Resource
-    private ProviderTempMapper providerTempMapper;
     @Resource
     private ProviderMapper providerMapper;
 
@@ -44,19 +36,22 @@ public class ProviderService extends CreateTemp {
             providerTemp.setNum(stringIntegerEntry.getValue());
             return providerTemp;
         }).collect(Collectors.toList());
-        providerTempMapper.insertList(providerTemps);
+        providerMapper.insertList(providerTemps);
     }
 
     @Override
     public String selectTemp() {
+        Map<String,Object> map= Maps.newHashMap();
+        map.put("dataName","供应商对比图");
         List<DateView> list = providerMapper.queryAll();
+        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
         } else {
-            return toJson.buildJson(list);
+            return toJson.buildJson(map);
         }
         list = providerMapper.queryAll();
 
-        return toJson.buildJson(list);
+        return toJson.buildJson(map);
     }
 }

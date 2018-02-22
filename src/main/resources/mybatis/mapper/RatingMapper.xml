@@ -13,4 +13,12 @@
         <include refid="res"></include>
         FROM rating_temp;
     </select>
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO rating_temp
+        (`rating`,`num`)
+        values
+        <foreach collection="list" item="element" index="index" open="(" separator="),(" close=")">
+            #{element.rating,jdbcType=VARCHAR},#{element.num,jdbcType=INTEGER}
+        </foreach>
+    </insert>
 </mapper>

@@ -2,8 +2,6 @@ package common.service;
 
 import com.google.common.collect.Maps;
 import common.dao.PressMapper;
-import common.dao.PressTempMapper;
-import common.model.param.LimitQuery;
 import common.model.param.PressTemp;
 import common.model.vo.DateView;
 import org.springframework.stereotype.Service;
@@ -12,15 +10,10 @@ import spider.read.douban.com.model.EbookInfo;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public class PressService extends CreateTemp {
-    @Resource
-    private PressTempMapper pressTempMapper;
     @Resource
     private PressMapper pressMapper;
 
@@ -45,21 +38,24 @@ public class PressService extends CreateTemp {
             pressTemp.setNum(stringIntegerEntry.getValue());
             return pressTemp;
         }).collect(Collectors.toList());
-        pressTempMapper.insertList(pressTemps);
+        pressMapper.insertList(pressTemps);
         map = null;
     }
 
     @Override
     public String selectTemp() {
+        Map<String,Object> map= Maps.newHashMap();
         List<DateView> list = pressMapper.queryAll();
+        map.put("dataName","出版商对比图");
+        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
         } else {
-            return toJson.buildJson(list);
+            return toJson.buildJson(map);
         }
         list = pressMapper.queryAll();
 
-        return toJson.buildJson(list);
+        return toJson.buildJson(map);
     }
 
 
