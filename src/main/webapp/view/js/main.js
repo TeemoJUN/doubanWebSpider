@@ -10,9 +10,10 @@ $(function () {
     $(".basicView").click(function () {
         $(".r_foot").show();
         $.ajax({
-            url: "cn/zailin/ebook/basic?rating=true&top=50",
+            url: "cn/zailin/ebook/basic?rating=true&page=2",
             success: function (data) {
-                viewDetailBook(data);
+                console.log(data);
+                viewDetailBook(data.contain);
             }
         })
     });

@@ -20,7 +20,9 @@
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="pubTime" jdbcType="DATE" property="pubtime"/>
     </resultMap>
-
+    <resultMap id="rows" type="cn.webspider.model.param.PageParam">
+        <result column="rows" jdbcType="INTEGER" property="rows"/>
+    </resultMap>
     <sql id="Base_Column_List">
         title, subtitle, author_name, translator, label, press, provider, word_count,
         rating, comments, current_price, description, popular_annotations, key_words, url,
@@ -44,13 +46,12 @@
             `current_price`
         </if>
         DESC
-        LIMIT
-        <if test="top !=0">
-            #{top,jdbcType=INTEGER}
-        </if>
-        <if test="top ==0">
-            1
-        </if>
+        LIMIT #{start,jdbcType=INTEGER},#{perPageRows,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryRows" resultMap="rows">
+        SELECT count(*) AS rows
+        FROM eBook_info;
     </select>
 
 </mapper>

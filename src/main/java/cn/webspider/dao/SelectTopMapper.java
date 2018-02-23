@@ -1,6 +1,7 @@
 package cn.webspider.dao;
 
 import cn.webspider.model.param.BasicSelectParam;
+import cn.webspider.model.param.PageParam;
 import cn.webspider.model.vo.BasicSelectView;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ import java.util.List;
 @Repository
 public interface SelectTopMapper {
     List<BasicSelectView> selectTop(BasicSelectParam basicSelectParam);
+
+    PageParam queryRows();
 }

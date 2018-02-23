@@ -2,6 +2,7 @@ package cn.webspider.model.param;
 
 /**
  * 基本查询(根据字数，评分，评论人数，当前价格，查询top前几的书籍)
+ *
  * @author wanzailin
  * @date 2018/01/14
  */
@@ -10,7 +11,7 @@ public class BasicSelectParam {
     /**
      * 字数
      */
-    private  boolean wordCount;
+    private boolean wordCount;
     /**
      * 评分
      */
@@ -24,9 +25,49 @@ public class BasicSelectParam {
      */
     private boolean currentPrice;
     /**
-     * 前几
+     * 请求的页
      */
-    private int top;
+    private int page;
+    /**
+     * 查询开始的地方
+     */
+    private int start;
+    /**
+     * 每页的行数
+     */
+    private int perPageRows;
+
+    public int getPerPageRows() {
+        return perPageRows;
+    }
+
+    public void setPerPageRows(int perPageRows) {
+        this.perPageRows = perPageRows;
+    }
+
+
+
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+
+    public boolean setWordCount() {
+        return wordCount;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 
     public boolean getWordCount() {
         return wordCount;
@@ -60,14 +101,6 @@ public class BasicSelectParam {
         this.currentPrice = currentPrice;
     }
 
-    public int getTop() {
-        return top;
-    }
-
-    public void setTop(int top) {
-        this.top = top;
-    }
-
     @Override
     public String toString() {
         return "BasicSelectParam{" +
@@ -75,7 +108,7 @@ public class BasicSelectParam {
                 ", rating=" + rating +
                 ", comments=" + comments +
                 ", currentPrice=" + currentPrice +
-                ", top=" + top +
+                ", page=" + page +
                 '}';
     }
 }
