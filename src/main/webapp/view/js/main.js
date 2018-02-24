@@ -1,6 +1,6 @@
 $(function () {
     /*左边显示*/
-     $(".submenu li").click(function (event) {
+    $(".submenu li").click(function (event) {
         event.stopPropagation();
     });
     $(".sideNav").children("li").click(function () {
@@ -9,21 +9,22 @@ $(function () {
     /*查询基本信息*/
     $(".basicView").click(function () {
         $(".r_foot").show();
+        var url = event.target.childNodes[0].getAttribute("url");
         $.ajax({
-            url: "cn/zailin/ebook/basic?rating=true&page=2",
+            url: url,
             success: function (data) {
                 console.log(data);
-                viewDetailBook(data.contain);
+                viewDetailBook(data.contain, data.title, data.page);
             }
         })
     });
     /*饼图*/
-    $(".pie").click(function (e) {
+    $(".pie").click(function (event) {
         $(".r_foot").hide();
-        var url=event.target.childNodes[0].getAttribute("href");
+        var url = event.target.childNodes[0].getAttribute("url");
         $.ajax({
-            url:url,
-            success:function (data) {
+            url: url,
+            success: function (data) {
                 console.log(data);
                 pie(data);
             }
@@ -33,7 +34,7 @@ $(function () {
     /*柱状图*/
     $(".analyze").click(function (event) {
         $(".r_foot").hide();
-        var url=event.target.childNodes[0].getAttribute("href");
+        var url = event.target.childNodes[0].getAttribute("url");
         $.ajax({
             url: url,
             success: function (data) {
@@ -42,17 +43,35 @@ $(function () {
         });
         return false;
     });
+    $(".page").click(function (event) {
+        var url = event.target.getAttribute("url");
+        //console.log(a);
+        $.ajax({
+            url: url,
+            success: function (data) {
+                viewDetailBook(data.contain, data.title, data.page);
+            }
+        });
+    });
+
 
     /**
      * 显示书籍详情信息
      * @param data
      */
-    function viewDetailBook(data) {
+    function viewDetailBook(data, title, page) {
         echarts.dispose(document.getElementById("contain"));
         $("#contain").empty();
+        $(".page").empty();
         var length = data.length;
         var fragment = document.createDocumentFragment();
         var table = document.createElement("table");
+        var caption = document.createElement("caption");
+        caption.setAttribute("align", "top");
+        var string = createTitle(title);
+        var text = document.createTextNode(string);
+        caption.appendChild(text);
+        table.appendChild(caption);
         var trOne = document.createElement("tr");
         for (var arr in data[0]) {
             if (arr === "description" || arr === "popularAnnotations" || arr === "subtitle") {
@@ -81,7 +100,7 @@ $(function () {
                     a.appendChild(node);
                     th.appendChild(a);
                 } else if (arr === "pubtime") {
-                    var date = value === "无" ? "无" : new Date(value).getFullYear()+"-"+(new Date(value).getMonth()+1);
+                    var date = value === "无" ? "无" : new Date(value).getFullYear() + "-" + (new Date(value).getMonth() + 1);
                     node = document.createTextNode(date);
                     th.appendChild(node);
                 }
@@ -95,6 +114,7 @@ $(function () {
         }
         fragment.appendChild(table);
         document.getElementById("contain").appendChild(fragment);
+        createPaging(page.currentPage, page.allPage, title);
     }
 
     /**
@@ -141,6 +161,65 @@ $(function () {
         }
     }
 
+    function createTitle(title) {
+        if (title === "comments") {
+            return "按评论数排名";
+        } else if (title === "wordCount") {
+            return "按字数排名";
+        } else if (title === "rating") {
+            return "按评分排名";
+        } else if (title === "currentPrice") {
+            return "按当前价格排名";
+        }
+        return "有问题！";
+    }
+
+    function createPaging(currentPage, allPage, title) {
+        var page = document.getElementsByClassName("page").item(0);
+        var num = 6;
+        var fragment = document.createDocumentFragment();
+        if (currentPage - 1 > 0) {
+            var prev = document.createElement("abbr");
+            prev.setAttribute("class", "prev");
+            prev.setAttribute("url", "cn/zailin/ebook/basic?" + title + "=true&page=" + (currentPage - 1));
+            var img = document.createElement("img");
+            img.setAttribute("src", "view/images/icon7.png");
+            prev.appendChild(img);
+            fragment.appendChild(prev);
+        }
+        var n = 3;
+        while ((n--) > 1) {
+            if (currentPage - n > 0) {
+                var abbr = document.createElement("abbr");
+                var text = document.createTextNode(currentPage - n);
+                abbr.setAttribute("url", "cn/zailin/ebook/basic?" + title + "=true&page=" + (currentPage - n));
+                abbr.appendChild(text);
+                fragment.appendChild(abbr);
+            }
+        }
+        var now = document.createElement("abbr");
+        now.setAttribute("class", "now");
+        var text = document.createTextNode(currentPage);
+        now.appendChild(text);
+        fragment.appendChild(now);
+        for (var i = currentPage + 1; i < allPage && (i < currentPage + 4); i++) {
+            var abbr = document.createElement("abbr");
+            abbr.setAttribute("url", "cn/zailin/ebook/basic?" + title + "=true&page=" + (i));
+            var text = document.createTextNode(i);
+            abbr.appendChild(text);
+            fragment.appendChild(abbr);
+        }
+        if (currentPage < allPage) {
+            var next = document.createElement("abbr");
+            next.setAttribute("class", "next");
+            next.setAttribute("url", "cn/zailin/ebook/basic?" + title + "=true&page=" + (currentPage + 1));
+            var img = document.createElement("img");
+            img.setAttribute("src", "view/images/icon8.png");
+            next.appendChild(img);
+            fragment.appendChild(next);
+        }
+        page.appendChild(fragment);
+    }
 
     /**
      * 柱状图的显示
@@ -148,19 +227,19 @@ $(function () {
      * @constructor
      */
     function bar(data) {
-        var resultBar=barFormatting(data.data);
+        var resultBar = barFormatting(data.data);
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
-        myChart.on("click",function (event) {
+        myChart.on("click", function (event) {
             barEvent(event);
         });
 
         myChart.setOption({
             title: {
                 text: data.dataName,
-                show:true,
-                textStyle:{
-                    fontSize:25
+                show: true,
+                textStyle: {
+                    fontSize: 25
                 }
             },
             grid: {
@@ -172,15 +251,15 @@ $(function () {
             tooltip: {},
             xAxis: {
                 data: resultBar.x,
-                axisLabel:{
-                    interval:0,
-                    rotate:40
+                axisLabel: {
+                    interval: 0,
+                    rotate: 40
                 }
             },
             yAxis: [
                 {
-                    type : 'value',
-                    name : '书籍数量'
+                    type: 'value',
+                    name: '书籍数量'
                 }
             ],
             dataZoom: [
@@ -204,12 +283,12 @@ $(function () {
                 }
             ]
         });
-        if(data.data.length<50){
+        if (data.data.length < 50) {
             myChart.setOption({
-                dataZoom:[{
-                    show:false,
-                    start:0,
-                    end:100
+                dataZoom: [{
+                    show: false,
+                    start: 0,
+                    end: 100
                 }]
             })
         }
@@ -223,28 +302,28 @@ $(function () {
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
         myChart.setOption({
-            title:{
-                text:data.dataName,
-                show:true,
-                textStyle:{
-                    color:'Orange',
-                    fontSize:40
+            title: {
+                text: data.dataName,
+                show: true,
+                textStyle: {
+                    color: 'Orange',
+                    fontSize: 40
                 },
-                left:'center'
+                left: 'center'
             },
             tooltip: {},
-            series : [
+            series: [
                 {
                     name: '评分分布图',
                     type: 'pie',
                     radius: '80%',
-                    data:data.data,
-                    itemStyle:{
-                        normal:{
-                            label:{
+                    data: data.data,
+                    itemStyle: {
+                        normal: {
+                            label: {
                                 show: true,
                                 formatter: '{b} : {c} ({d}%)',
-                                textStyle:{
+                                textStyle: {
                                     fontSize: 18
                                 }
                             }
@@ -256,19 +335,20 @@ $(function () {
 
         })
     }
+
     /**
      * 把接收的数据转化为可以显示的数据
      * @param data
      * @returns {{x: Array, y: Array}}
      */
     function barFormatting(data) {
-        var bar={
-            x:[],
-            y:[]
+        var bar = {
+            x: [],
+            y: []
         };
-        for(var i=0;i<data.length;i++){
-            for(var each in data[i]){
-                if(each==="name"){
+        for (var i = 0; i < data.length; i++) {
+            for (var each in data[i]) {
+                if (each === "name") {
                     bar.x.push(data[i][each]);
                 }
                 else {

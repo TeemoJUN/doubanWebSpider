@@ -21,73 +21,73 @@
     <div id="leftSideBar" class="line">
         <ul class="sideNav">
             <li>
-                <div class="menu basicView">
-                    <span><a>基本的显示</a></span>
+                <div class="menu">
+                    <span><abbr>基本的显示</abbr></span>
                     <i>&nbsp;</i>
                 </div>
                 <ul class="submenu">
-                    <li>
-                        <span><a href="cn/zailin/ebook/basic?wordCount=true">书籍字数最多的书籍</a></span>
+                    <li class="basicView">
+                        <span><abbr url="cn/zailin/ebook/basic?wordCount=true">书籍字数最多的书籍</abbr></span>
                     </li>
-                    <li>
-                        <span><a href="cn/zailin/ebook/basic?currentPrice=true">价格最贵的书籍</a></span>
+                    <li class="basicView">
+                        <span><abbr url="cn/zailin/ebook/basic?currentPrice=true">价格最贵的书籍</abbr></span>
                     </li>
-                    <li>
-                        <span><a href="cn/zailin/ebook/basic?rating=true">评分最高的书籍</a></span>
+                    <li class="basicView">
+                        <span><abbr url="cn/zailin/ebook/basic?rating=true">评分最高的书籍</abbr></span>
                     </li>
-                    <li>
-                        <span><a href="cn/zailin/ebook/basic?comments=true" target="main">评论最多的书籍</a></span>
+                    <li class="basicView">
+                        <span><abbr url="cn/zailin/ebook/basic?comments=true" target="main">评论最多的书籍</abbr></span>
                     </li>
                 </ul>
             </li>
             <li>
                 <div class="menu">
-                    <span><a>书籍查询</a></span>
+                    <span><abbr>书籍查询</abbr></span>
                     <i>&nbsp;</i>
                 </div>
                 <ul class="submenu">
                     <li>
-                        <span><a href="hy_list.html" target="main">查询</a></span>
+                        <span><abbr url="hy_list.html" target="main">查询</abbr></span>
                     </li>
                 </ul>
             </li>
             <li>
                 <div class="menu">
-                    <span><a>根据数据来分析</a></span>
+                    <span><abbr>根据数据来分析</abbr></span>
                     <i>&nbsp;</i>
                 </div>
                 <ul class="submenu">
                     <li class="analyze">
-                        <span><a href="cn/zailin/ebook/analyze/Press">出版商及其出版的书籍数量对比</a></span>
+                        <span><abbr url="cn/zailin/ebook/analyze/Press">出版商及其出版的书籍数量对比</abbr></span>
                     </li>
                     <li class="analyze">
-                        <span><a href="cn/zailin/ebook/analyze/Provider">供应商及其提供的书籍数量</a></span>
+                        <span><abbr url="cn/zailin/ebook/analyze/Provider">供应商及其提供的书籍数量</abbr></span>
                     </li>
                     <li class="analyze">
-                        <span><a href="cn/zailin/ebook/analyze/Label">书籍类别及书籍数量对比</a></span>
+                        <span><abbr url="cn/zailin/ebook/analyze/Label">书籍类别及书籍数量对比</abbr></span>
                     </li>
                     <%--<li>--%>
                         <%--<span><a>作者分布</a></span>--%>
                     <%--</li>--%>
                     <li class="analyze">
-                        <span><a href="cn/zailin/ebook/analyze/Pubtime">时间分布</a></span>
+                        <span><abbr url="cn/zailin/ebook/analyze/Pubtime">时间分布</abbr></span>
                     </li>
                     <li class="pie">
-                        <span><a href="cn/zailin/ebook/analyze/Rating">评分的分布</a></span>
+                        <span><abbr url="cn/zailin/ebook/analyze/Rating">评分的分布</abbr></span>
                     </li>
                     <li class="analyze">
-                        <span><a href="cn/zailin/ebook/analyze/Key">标签种类及其个数分布</a></span>
+                        <span><abbr url="cn/zailin/ebook/analyze/Key">标签种类及其个数分布</abbr></span>
                     </li>
                 </ul>
             </li>
             <li>
                 <div class="menu">
-                    <span><a href="cqxt.html" target="_blank">重启</a></span>
+                    <span><abbr url="cqxt.html" target="_blank">重启</abbr></span>
                 </div>
             </li>
             <li>
                 <div class="menu">
-                    <span><a href="tcxt.html" target="_blank">退出系统</a></span>
+                    <span><abbr url="tcxt.html" target="_blank">退出系统</abbr></span>
                 </div>
             </li>
         </ul>
@@ -99,23 +99,8 @@
         </div>
         <div class="r_foot">
             <div class="r_foot_m">
-                <%--<span>--%>
-                    <%--<input name="" type="checkbox" value="">--%>
-                    <%--<em>全部选中</em>--%>
-                <%--</span>--%>
-                <%--<a href="" class="btn">删除</a>--%>
-                <%--<a href="" class="btn">刷新</a>--%>
-
                 <!--分页-->
                 <div class="page">
-                    <a href="" class="prev"><img src="view/images/icon7.png" alt=""/></a>
-                    <a class="now">1</a>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <a href="">6</a>
-                    <a href="" class="next"><img src="view/images/icon8.png" alt=""/></a>
                 </div>
                 <!--分页-->
             </div>

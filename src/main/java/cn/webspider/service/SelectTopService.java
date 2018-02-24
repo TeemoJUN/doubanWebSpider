@@ -41,7 +41,7 @@ public class SelectTopService {
      * @return Json
      */
     public String selectTop(BasicSelectParam basicSelectParam) {
-        if (!checkParam(basicSelectParam)&&(basicSelectParam.getPage() < 0)) {
+        if (!checkParam(basicSelectParam) && (basicSelectParam.getPage() < 0)) {
             logger.info("参数错误--:{}", basicSelectParam);
             return "参数错误";
         }
@@ -49,12 +49,13 @@ public class SelectTopService {
         if (pageView == null) {
             return "参数错误";
         }
-        Map<String,Object> map= Maps.newHashMap();
+        Map<String, Object> map = Maps.newHashMap();
         basicSelectParam.setStart((pageView.getCurrentPage() - 1) * perPageRows);
         basicSelectParam.setPerPageRows(perPageRows);
         List<BasicSelectView> list = selectTopMapper.selectTop(basicSelectParam);
-        map.put("page",pageView);
-        map.put("contain",list);
+        map.put("page", pageView);
+        map.put("contain", list);
+        map.put("title", setTitle(basicSelectParam));
         return toJson.buildJson(map);
     }
 
@@ -85,8 +86,8 @@ public class SelectTopService {
     }
 
     private PageView calculate(int nextPage) {
-        if(nextPage==0){
-            nextPage=1;
+        if (nextPage == 0) {
+            nextPage = 1;
         }
         PageParam pageParam = selectTopMapper.queryRows();
         int count = pageParam.getRows();
@@ -96,7 +97,7 @@ public class SelectTopService {
         } else {
             totalPage = count / perPageRows + 1;
         }
-        if (nextPage < totalPage) {
+        if (nextPage <= totalPage) {
             PageView pageView = new PageView();
             pageView.setAllPage(totalPage);
             pageView.setCurrentPage(nextPage);
@@ -106,5 +107,17 @@ public class SelectTopService {
         return null;
     }
 
+    private String setTitle(BasicSelectParam basicSelectParam) {
+        if (basicSelectParam.getComments()) {
+            return "comments";
+        } else if (basicSelectParam.getWordCount()) {
+            return "wordCount";
+        } else if (basicSelectParam.getRating()) {
+            return "rating";
+        } else if (basicSelectParam.getCurrentPrice()) {
+            return "currentPrice";
+        }
+        return null;
+    }
 
 }

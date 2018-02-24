@@ -86,7 +86,7 @@ ol, ul {
     margin-top: 20px;
 }
 
-.sideNav li .menu span a {
+.sideNav li .menu span abbr{
     font-size: 12px;
     color: #434343;
     margin-left: 35px;
@@ -98,7 +98,7 @@ ol, ul {
     color: #3D89CB;
 }
 
-.sideNav li.view .menu span a, .sideNav li.view .submenu li a {
+.sideNav li.view .menu span abbr, .sideNav li.view .submenu li abbr {
     color: #3D89CB;
 }
 
@@ -141,7 +141,7 @@ ol, ul {
     background-color: #E5E5E5;
 }
 
-.sideNav li .submenu li a {
+.sideNav li .submenu li abbr {
     font-size: 12px;
     color: #434343;
 }
@@ -154,7 +154,7 @@ ol, ul {
     text-align: left;
 }
 
-.sideNav li .submenu li span a {
+.sideNav li .submenu li span abbr {
     margin-left: 35px;
 }
 
@@ -167,6 +167,7 @@ table {
     width: 100%;
     min-width: 1100px;
     border: 0 solid black;
+    border-top: 1px;
     border-left-width: 1px;
     white-space: nowrap;
     border-collapse: collapse;
@@ -176,9 +177,8 @@ table {
 
 table td, table th {
     font-size: 12px;
-    border-style: solid;
-    border-color: black;
-    border-width: 0 1px 1px 0;
+    border: 1px solid black;
+    border-left-width: 0;
     max-width: 200px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -186,6 +186,10 @@ table td, table th {
 
 table th {
     font-size: 15px;
+}
+caption{
+    font-size: 25px;
+    color: black;
 }
 
 
@@ -253,7 +257,7 @@ table th {
     background:#FFF;
     border:1px solid #DEDEDE;
 }
-.r_foot_m .page a{
+.r_foot_m .page abbr{
     display:inline-block;
     *display:inline;
     zoom:1;
@@ -267,7 +271,7 @@ table th {
     padding:0;
     margin:0;
 }
-.r_foot_m .page a.now{
+.r_foot_m .page abbr.now{
     color:#FFF;
     background:#3D89CB;
 }
@@ -278,7 +282,7 @@ table th {
     margin-right:6px;
     border:0;
 }
-.r_foot_m a img{
+.r_foot_m abbr img{
     width:9px;
     height:14px;
     vertical-align:top;

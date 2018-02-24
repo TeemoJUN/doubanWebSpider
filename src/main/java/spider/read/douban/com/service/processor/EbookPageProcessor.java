@@ -38,7 +38,7 @@ public class EbookPageProcessor implements PageProcessor {
         return site;
     }
 
-    public void createEbookInfo(Page page) {
+    private void createEbookInfo(Page page) {
 
         Html html = page.getHtml();
 
