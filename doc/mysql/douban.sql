@@ -5,57 +5,6 @@ create user autism IDENTIFIED by '970816'; ##设置用户
 GRANT SELECT,UPDATE,INSERT,DELETE ON douban.* TO autism; ##颁发用户查询，更新，插入，删除权限
 
 
-CREATE TABLE `user_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_no` varchar(40) DEFAULT NULL COMMENT '用户编号',
-  `name` varchar(40) DEFAULT NULL COMMENT '用户昵称',
-  `signature` varchar(100) DEFAULT NULL COMMENT '签名',
-  `location` varchar(100) DEFAULT NULL COMMENT '长居地',
-  `time` date DEFAULT NULL COMMENT '注册豆瓣时间',
-  `introduction` varchar(2000) DEFAULT NULL COMMENT '个人简介',
-  `reading` int(11) DEFAULT NULL COMMENT '正在读',
-  `has_read` int(11) DEFAULT NULL COMMENT '读过',
-  `want_read` int(11) DEFAULT NULL COMMENT '想读',
-  `concern` int(11) DEFAULT NULL COMMENT '关注了',
-  `followers` int(11) DEFAULT NULL COMMENT '关注者',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_no` (`user_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '豆瓣用户';
-
-
-
-CREATE TABLE `book_info`(
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图书主键',
-  `no` varchar(20) NOT NULL COMMENT '豆瓣图书编号,url中数字',
-  `title` varchar(30) DEFAULT NULL COMMENT '书名',
-  `author_name` varchar(30) DEFAULT NULL COMMENT '作者姓名',
-  `press` varchar(20) DEFAULT NULL COMMENT '出版社',
-  `original_title` varchar(30) DEFAULT NULL COMMENT '图书原名',
-  `translator` varchar(30) DEFAULT NULL COMMENT '译者',
-  `pubTime` date DEFAULT NULL COMMENT '出版年份',
-  `pages` int(11) DEFAULT NULL COMMENT '页数',
-  `price` double DEFAULT NULL COMMENT '定价',
-  `binding` varchar(20) DEFAULT NULL COMMENT '装帧',
-  `series` varchar(20) DEFAULT NULL COMMENT '丛书',
-  `isbn` varchar(60) DEFAULT NULL COMMENT 'ISBN',
-  `rating` double(11,1) DEFAULT NULL COMMENT '豆瓣评分',
-  `comments` int(11) DEFAULT NULL COMMENT '评价人数',
-  `content_info` varchar(2000) DEFAULT NULL COMMENT '内容简介',
-  `author_info` varchar(2000) DEFAULT NULL COMMENT '作者简介',
-  `user_tags` varchar(200) DEFAULT NULL COMMENT '豆瓣成员常用标签',
-  `also_like_eBook` varchar(400) DEFAULT NULL COMMENT '喜欢这本书的人也喜欢的电子书',
-  `also_like_book` varchar(400) DEFAULT NULL COMMENT '喜欢这本书的人也喜欢读',
-  `short_comments_num` int(11) DEFAULT NULL COMMENT '短评数',
-  `book_comments_num` int(11) DEFAULT NULL COMMENT '书评数',
-  `reading_notes_num` int(11) DEFAULT NULL COMMENT '读书笔记数',
-  `readings_num` int(11) DEFAULT NULL COMMENT '正在读书人数',
-  `has_read_num` int(11) DEFAULT NULL COMMENT '读过人数',
-  `want_read_num` int(11) DEFAULT NULL COMMENT '想读人数',
-  `other_versions` VARCHAR(1000) DEFAULT NULL COMMENT '其它版本,可以用关联no',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `no` (`no`)
-)ENGINE =InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET =utf8 COMMENT '实体书';
-
 CREATE TABLE `eBook_info`(
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图书主键',
   `no` varchar(20) NOT NULL COMMENT '豆瓣图书编号,url中数字',
@@ -85,26 +34,6 @@ CREATE TABLE `publisher`(
   PRIMARY KEY (`id`)
 )ENGINE =InnoDB DEFAULT CHARSET utf8 COMMENT '电子书提供方';
 
-## -----------------------------------------------------------
-## 测试
-
-CREATE TABLE `test`(
-  `now` DATE
-);
-INSERT INTO `test`(
-now
-)VALUES ('2017-7-1');
-select * from test;
-
-CREATE TABLE `mytesttable` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `createtime` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '测试时间戳';
-##----------------------------------------------------------------
-
 
 ALTER TABLE `user_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
 ALTER TABLE `book_info` ADD COLUMN  `url` VARCHAR(200) NOT NULL COMMENT 'url';
@@ -126,5 +55,86 @@ ALTER TABLE `eBook_info` MODIFY `press` varchar(40) DEFAULT NULL COMMENT '出版
 
 ALTER TABLE `eBook_info` MODIFY `no` INT(10) NOT NULL COMMENT '豆瓣图书编号,url中数字';
 
+create table press_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `press` varchar(20) NOT NULL COMMENT '出版社',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '出版商临时表';
 
-SHOW CREATE TABLE eBook_info;
+create table provider_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `provider` VARCHAR(20) DEFAULT NULL COMMENT '提供方',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '提供方临时表';
+
+create table label_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `label` VARCHAR(20) DEFAULT NULL COMMENT '类别',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '类别临时表';
+
+create table author_address_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `author_address` varchar(30) DEFAULT NULL COMMENT '作者地域',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '作者地域临时表';
+
+create table pubTime_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `pubTime` VARCHAR(20) DEFAULT NULL COMMENT '出版年份',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '出版年份临时表';
+
+create table rating_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `rating` VARCHAR(10) DEFAULT NULL COMMENT '豆瓣评分',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '豆瓣评分临时表';
+
+create table key_temp(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `key_words` varchar(50) DEFAULT NULL COMMENT '作品标签',
+  `num` int(10) NOT NULL COMMENT '数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)ENGINE = MEMORY DEFAULT CHARSET=utf8 COMMENT '作品标签临时表';
+
+
+## -----------------------------------------------------------
+## 测试
+
+CREATE TABLE `test`(
+  `now` DATE
+);
+INSERT INTO `test`(
+  now
+)VALUES ('2017-7-1');
+select * from test;
+
+CREATE TABLE `mytesttable` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `createtime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updatetime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '测试时间戳';
+##----------------------------------------------------------------
