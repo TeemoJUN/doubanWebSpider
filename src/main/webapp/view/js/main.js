@@ -45,7 +45,7 @@ $(function () {
     });
     $(".page").click(function (event) {
         var url = event.target.getAttribute("url");
-        //console.log(a);
+        console.log(url);
         $.ajax({
             url: url,
             success: function (data) {
@@ -58,6 +58,8 @@ $(function () {
     /**
      * 显示书籍详情信息
      * @param data
+     * @param title
+     * @param page
      */
     function viewDetailBook(data, title, page) {
         echarts.dispose(document.getElementById("contain"));
