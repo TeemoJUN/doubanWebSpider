@@ -43,15 +43,13 @@ public class ProviderService extends CreateTemp {
     public String selectTemp() {
         Map<String,Object> map= Maps.newHashMap();
         map.put("dataName","供应商对比图");
+        map.put("dataTitle","provider");
         List<DateView> list = providerMapper.queryAll();
-        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
-        } else {
-            return toJson.buildJson(map);
+            list = providerMapper.queryAll();
         }
-        list = providerMapper.queryAll();
-
+        map.put("data",list);
         return toJson.buildJson(map);
     }
 }

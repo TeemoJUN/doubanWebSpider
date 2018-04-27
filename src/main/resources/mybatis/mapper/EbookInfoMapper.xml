@@ -30,7 +30,7 @@
     </sql>
     <select id="selectTop" parameterType="cn.webspider.model.param.BasicSelectParam" resultMap="SelectResutlMap">
         SELECT
-        <include refid="Base_Column_List"></include>
+        <include refid="Base_Column_List"/>
         FROM eBook_info
         ORDER BY
         <if test="wordCount == true">
@@ -53,5 +53,9 @@
         SELECT count(*) AS rows
         FROM eBook_info;
     </select>
-
+    <select id="queryDetails" resultMap="SelectResutlMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM eBook_info;
+    </select>
 </mapper>

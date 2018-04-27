@@ -40,15 +40,13 @@ public class LabelService extends CreateTemp{
     public String selectTemp() {
         Map<String,Object> map= Maps.newHashMap();
         map.put("dataName","书籍类别对比图");
+        map.put("dataTitle","label");
         List<DateView> list = labelMapper.queryAll();
-        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
-        } else {
-            return toJson.buildJson(map);
+            list = labelMapper.queryAll();
         }
-        list = labelMapper.queryAll();
-
+        map.put("data",list);
         return toJson.buildJson(map);
     }
 }

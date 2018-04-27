@@ -13,7 +13,7 @@ $(function () {
         $.ajax({
             url: url,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 viewDetailBook(data.contain, data.title, data.page);
             }
         })
@@ -25,7 +25,7 @@ $(function () {
         $.ajax({
             url: url,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 pie(data);
             }
         });
@@ -45,7 +45,7 @@ $(function () {
     });
     $(".page").click(function (event) {
         var url = event.target.getAttribute("url");
-        console.log(url);
+        //console.log(url);
         $.ajax({
             url: url,
             success: function (data) {
@@ -232,8 +232,9 @@ $(function () {
         var resultBar = barFormatting(data.data);
         echarts.dispose(document.getElementById("contain"));
         var myChart = echarts.init(document.getElementById("contain"));
+        //console.log(data.dataTitle);
         myChart.on("click", function (event) {
-            barEvent(event);
+            barEvent(event,data.dataTitle);
         });
 
         myChart.setOption({
@@ -249,6 +250,18 @@ $(function () {
                 left: '4%',
                 right: '10%',
                 containLabel: true
+            },
+            toolbox: {
+                itemSize:'30',
+                show: true,
+                feature: {
+                    saveAsImage: {},
+                    magicType:{
+                        show:true,
+                        type: ['line', 'bar']
+                    }
+                },
+                right: '3%'
             },
             tooltip: {},
             xAxis: {
@@ -273,11 +286,7 @@ $(function () {
                     handleSize: 8
                 }
             ],
-            series: [{
-                name: '数量',
-                type: 'line',
-                data: resultBar.y
-            },
+            series: [
                 {
                     name: '数量',
                     type: 'bar',
@@ -314,6 +323,14 @@ $(function () {
                 left: 'center'
             },
             tooltip: {},
+            toolbox: {
+                itemSize:'30',
+                show: true,
+                feature: {
+                    saveAsImage: {}
+                },
+                right: '3%'
+            },
             series: [
                 {
                     name: '评分分布图',
@@ -365,11 +382,32 @@ $(function () {
      * 柱状图的item事件
      * @param param
      */
-    function barEvent(param) {
+    function barEvent(param,title) {
         console.log(param.name);
+        console.dir(title);
         //@TODO 根据参数再次请求服务起返回参数，返回所有列表
+        var fragment = document.createDocumentFragment();
+        $.ajax({
+            type:POST,
+            url:"/cn/zailin/ebook/details",
+            data: "column="+title+"&details="+param.name,
+            success:function (data) {
+                viewDetailBook(data)
+            }
+
+        })
     }
 
+    /**
+     * 查询功能
+     */
+    function viewSelect() {
+        echarts.dispose(document.getElementById("contain"));
+        $("#contain").empty();
+        $(".page").empty();
+
+
+    }
 });
 
 

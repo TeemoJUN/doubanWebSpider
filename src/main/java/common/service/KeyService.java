@@ -46,15 +46,13 @@ public class KeyService extends CreateTemp {
     public String selectTemp() {
         Map<String,Object> map= Maps.newHashMap();
         map.put("dataName","关键字对比图");
+        map.put("dataTitle","key");
         List<DateView> list = keyMapper.queryAll();
-        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
-        } else {
-            return toJson.buildJson(map);
         }
         list = keyMapper.queryAll();
-
+        map.put("data",list);
         return toJson.buildJson(map);
     }
 }

@@ -80,16 +80,16 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <div class="menu">
-                    <span><abbr url="cqxt.html" target="_blank">重启</abbr></span>
-                </div>
-            </li>
-            <li>
-                <div class="menu">
-                    <span><abbr url="tcxt.html" target="_blank">退出系统</abbr></span>
-                </div>
-            </li>
+            <%--<li>--%>
+                <%--<div class="menu">--%>
+                    <%--<span><abbr url="cqxt.html" target="_blank">重启</abbr></span>--%>
+                <%--</div>--%>
+            <%--</li>--%>
+            <%--<li>--%>
+                <%--<div class="menu">--%>
+                    <%--<span><abbr url="tcxt.html" target="_blank">退出系统</abbr></span>--%>
+                <%--</div>--%>
+            <%--</li>--%>
         </ul>
     </div>
 

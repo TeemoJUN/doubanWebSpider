@@ -85,14 +85,13 @@ public class RatingService extends CreateTemp {
     public String selectTemp() {
         Map<String,Object> map=Maps.newHashMap();
         map.put("dataName","评分分布");
+        map.put("dataTitle","rating");
         List<DateView> list = ratingMapper.queryAll();
-        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
-        } else {
-            return toJson.buildJson(map);
+            list = ratingMapper.queryAll();
         }
-        list = ratingMapper.queryAll();
+        map.put("data",list);
         return toJson.buildJson(map);
     }
 }

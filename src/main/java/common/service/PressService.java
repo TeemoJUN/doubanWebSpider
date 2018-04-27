@@ -39,22 +39,19 @@ public class PressService extends CreateTemp {
             return pressTemp;
         }).collect(Collectors.toList());
         pressMapper.insertList(pressTemps);
-        map = null;
     }
 
     @Override
     public String selectTemp() {
         Map<String,Object> map= Maps.newHashMap();
         List<DateView> list = pressMapper.queryAll();
-        map.put("dataName","出版商对比图");
-        map.put("data",list);
         if (list.size() == 0) {
             createTempTable();
-        } else {
-            return toJson.buildJson(map);
+            list = pressMapper.queryAll();
         }
-        list = pressMapper.queryAll();
-
+        map.put("dataName","出版商对比图");
+        map.put("dataTitle","press");
+        map.put("data",list);
         return toJson.buildJson(map);
     }
 

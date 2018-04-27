@@ -16,4 +16,6 @@ public interface SelectTopMapper {
     List<BasicSelectView> selectTop(BasicSelectParam basicSelectParam);
 
     PageParam queryRows();
+
+    List<BasicSelectParam> queryDetails();
 }
